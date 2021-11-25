@@ -16,23 +16,23 @@
 namespace EasyPrototyping.DomainType
 {
     using System;
+    using System.Diagnostics;
     using System.Text.RegularExpressions;
 
+    [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
     public class Email : IEquatable<Email>, IComparable<Email>
     {
-        public Email(string value)
+        public Email(string value = "")
         {
-            this.Value = string.Empty;
-            this.IsConfirmed = false;
-            this.Id = Guid.NewGuid();
-
             if (this.CheckValue(value) == true)
             {
+                this.Id = Guid.NewGuid();
                 this.Value = value;
                 this.IsConfirmed = true;
             }
             else
             {
+                this.Id = Guid.NewGuid();
                 this.Value = value;
                 this.IsConfirmed = false;
             }
@@ -45,12 +45,12 @@ namespace EasyPrototyping.DomainType
         public bool IsConfirmed { get; private set; }
 
 
-        public bool Equals(Email? other)
+        public bool Equals(Email other)
         {
-            return Value == other!.Value && IsConfirmed == other.IsConfirmed;
+            return this.Value == other?.Value && this.IsConfirmed == other?.IsConfirmed;
         }
 
-        public override bool Equals(object? @this)
+        public override bool Equals(object @this)
         {
             if (ReferenceEquals(null, @this))
             {
@@ -60,7 +60,7 @@ namespace EasyPrototyping.DomainType
             return @this is Email && Equals((Email)@this);
         }
 
-        public int CompareTo(Email? other) => Value.CompareTo(other!.Value);
+        public int CompareTo(Email other) => Value.CompareTo(other.Value);
 
         public override int GetHashCode()
         {
