@@ -20,5 +20,8 @@ public class Program
         {
             MessageBox.Show(email1.Value);
         }
+
+        Firstname firstName = new Firstname("gerhard");
+
     }
 }
