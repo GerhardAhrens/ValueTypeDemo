@@ -92,7 +92,7 @@ namespace EasyPrototyping.Entity
 
         public decimal WeightOutcome(double outcome)
         {
-            return _value * outcome;
+            return _value * Convert.ToDecimal(outcome);
         }
     }
 }
