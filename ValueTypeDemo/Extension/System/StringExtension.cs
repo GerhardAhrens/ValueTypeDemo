@@ -1,4 +1,19 @@
-﻿namespace System
+﻿//-----------------------------------------------------------------------
+// <copyright file="StringExtension.cs" company="Lifeprojects.de">
+//     Class: StringExtension
+//     Copyright © Lifeprojects.de 2021
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>gerhard.ahrens@lifeprojects.de</email>
+// <date>29.11.2021</date>
+//
+// <summary>
+// Klasse für String Extension
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace System
 {
     using global::System.Linq;
     using global::System.Text.RegularExpressions;

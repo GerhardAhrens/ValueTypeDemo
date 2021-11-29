@@ -9,7 +9,7 @@
 // <date>25.11.2021</date>
 //
 // <summary>
-// Klasse für Domain ValueType Probability (als Struct)
+// Klasse für Entity ValueType Probability (als Struct)
 // </summary>
 //-----------------------------------------------------------------------
 
