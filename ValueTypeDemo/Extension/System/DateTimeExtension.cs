@@ -9,15 +9,12 @@
 // <date>29.11.2021</date>
 //
 // <summary>
-// Klasse für String Extension
+// Klasse für DateTime Extension
 // </summary>
 //-----------------------------------------------------------------------
 
 namespace System
 {
-    using global::System.Linq;
-    using global::System.Text.RegularExpressions;
-
     internal static class DateTimeExtension
     {
         public static int GetAge(this DateTime @this)
