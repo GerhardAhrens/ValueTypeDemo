@@ -13,7 +13,7 @@
 // </summary>
 //-----------------------------------------------------------------------
 
-namespace EasyPrototyping.DomainType
+namespace EasyPrototyping.Entity
 {
     using System;
     using System.Diagnostics;
