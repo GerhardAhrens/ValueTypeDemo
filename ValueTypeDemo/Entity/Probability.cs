@@ -15,8 +15,9 @@
 
 namespace EasyPrototyping.Entity
 {
+    using System;
 
-    public struct Probability : IEquatable<Probability>, IComparable<Probability>
+    public class Probability : IEquatable<Probability>, IComparable<Probability>
     {
         public static bool operator ==(Probability x, Probability y)
         {
@@ -50,7 +51,7 @@ namespace EasyPrototyping.Entity
 
         private decimal _value;
 
-        public Probability(decimal value) : this()
+        public Probability(decimal value)
         {
             if (value < 0 || value > 1)
             {
