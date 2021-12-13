@@ -30,11 +30,10 @@ public class Program
         Address adr1 = new Address("Deutschland","68195","Musterstadt","Musterstrasse");
         if (adr1 != null)
         {
-            var properties = adr1.GetProperties();
             Address adr2 = new Address("Deutschland", "68195", "Musterstadt", "Musterstrasse");
             if (adr1 == adr2)
             {
-
+                Address adr3 = (Address)adr1.Clone();
             }
         }
 

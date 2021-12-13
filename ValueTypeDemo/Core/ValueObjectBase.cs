@@ -6,7 +6,7 @@
     using System.Reflection;
 
     [Serializable]
-    public abstract class ValueObjectBase
+    public abstract class ValueObjectBase : ICloneable
     {
         protected static bool EqualOperator(ValueObjectBase? left, ValueObjectBase? right)
         {
@@ -48,6 +48,38 @@
         {
             var aa = this.GetEqualityComponents().Select(x => x.GetType().GetProperty(x.ToString()));
             return GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).ToList();
+        }
+
+        public object Clone()
+        {
+            /*
+            var aa = MyCreateInstance(this.GetType());
+            ParameterInfo[] parameters = this.GetType().GetConstructors()[0].GetParameters();
+            object newObject = Activator.CreateInstance(this.GetType(), new object[] { parameters[0].ParameterType.GetEnumValues().GetValue(0) });
+
+            //We get the array of fields for the new type instance.
+            FieldInfo[] fields = newObject.GetType().GetFields();
+            */
+            return MemberwiseClone();
+        }
+
+        public static object MyCreateInstance(Type type)
+        {
+            var parametrizedCtor = type
+                .GetConstructors()
+                .FirstOrDefault(c => c.GetParameters().Length > 0);
+
+            return parametrizedCtor != null
+                ? parametrizedCtor.Invoke
+                    (parametrizedCtor.GetParameters()
+                        .Select(p =>
+                            p.HasDefaultValue ? p.DefaultValue :
+                            p.ParameterType.IsValueType && Nullable.GetUnderlyingType(p.ParameterType) == null
+                                ? Activator.CreateInstance(p.ParameterType)
+                                : null
+                        ).ToArray()
+                    )
+                : Activator.CreateInstance(type);
         }
     }
 }
