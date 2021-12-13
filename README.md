@@ -1,8 +1,8 @@
 # Value Objects <img src="./ValueObject.png" style="width:50px;"/>
 
 # Was sind Value Objects?
-Value Objects sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiker Aspekt, ist wenn die Benutzung von Typen 
-einen konkreten Bezug zu einer fachleichkeit haben soll. Strukturen, die für sich genommen keinen Sinn ergeben, aber Informationen enthalten, werden als Wertobjekte bezeichnet. 
+Value Objects sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiger Aspekt, ist wenn die Benutzung von Typen 
+einen konkreten Bezug zu einer Fachlichkeit haben soll. Strukturen, die für sich genommen keinen Sinn ergeben, aber Informationen enthalten, werden als Wertobjekte bezeichnet. 
 Wir können die Datumsstruktur als Beispiel betrachten. Die Kombination von 3 Zahlen, Tag, Monat und Jahr, erzeugt Informationen, die auf ein bestimmtes Datum hinweisen. Es ist jedoch unklar, was dieses Datum bedeutet. Dieses Problem wird verständlicher, wenn wir über zwei Hauptmerkmale von Wertobjekten sprechen.
 
 ## 1 —Identityless
