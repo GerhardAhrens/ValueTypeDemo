@@ -34,6 +34,8 @@ public class Program
             if (adr1 == adr2)
             {
                 Address adr3 = (Address)adr1.Clone();
+                Address adr4 = adr1.CloneTo<Address>();
+                var aa = adr1.GetProperties<Address>();
             }
         }
 

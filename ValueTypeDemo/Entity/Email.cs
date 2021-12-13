@@ -16,66 +16,51 @@
 namespace EasyPrototyping.Entity
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.RegularExpressions;
 
+    using ValueTypeDemo.Core;
+
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
-    public class Email : IEquatable<Email>, IComparable<Email>
+    public class Email : ValueObjectBase
     {
         public Email(string value = "")
         {
             if (this.CheckValue(value) == true)
             {
-                this.Id = Guid.NewGuid();
                 this.Value = value;
                 this.IsConfirmed = true;
             }
             else
             {
-                this.Id = Guid.NewGuid();
                 this.Value = value;
                 this.IsConfirmed = false;
             }
         }
 
-        public Guid Id { get; private set; }
-
         public string Value { get; }
 
         public bool IsConfirmed { get; private set; }
 
-
-        public bool Equals(Email other)
-        {
-            return this.Value == other?.Value && this.IsConfirmed == other?.IsConfirmed;
-        }
-
+        #region Implementation of override methodes
         public override bool Equals(object @this)
         {
-            if (ReferenceEquals(null, @this))
-            {
-                return false;
-            }
-
-            return @this is Email && Equals((Email)@this);
+            return base.Equals(@this);
         }
-
-        public int CompareTo(Email other) => Value.CompareTo(other.Value);
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((this.Value != null ? this.Value.GetHashCode() : 0) * 397) ^ IsConfirmed.GetHashCode();
-            }
+            return base.GetHashCode();
         }
-
 
         public override string ToString()
         {
             return this.Value;
         }
+        #endregion Implementation of override methodes
 
+        #region Implementation of overload operators
         public static bool operator ==(Email a, Email b)
         {
             return a.Equals(b);
@@ -85,6 +70,7 @@ namespace EasyPrototyping.Entity
         {
             return !(a == b);
         }
+        #endregion Implementation of overload operators
 
         private bool CheckValue(string value)
         {
@@ -101,6 +87,12 @@ namespace EasyPrototyping.Entity
             }
 
             return result;
+        }
+
+        protected override IEnumerable<object?> GetEqualityComponents()
+        {
+            yield return this.Value;
+            yield return this.IsConfirmed;
         }
     }
 }
