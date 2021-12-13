@@ -29,6 +29,9 @@ class Person
     Birthday BirthDate;
 }
 ```
-Betrachtet man den obigen Beipiele, so ist das zweite Beispiel der Person-Klasse besser lesbar. Im in diesem Beispiel wird am deutlichsten wie ValueObjects einzusetzten werden können. Die Darstellung der Informationen wirkt sich positiv auf die Wartbarkeit des Codes aus.
+Betrachtet man die obigen Beipiele, so ist das zweite Beispiel der Person-Klasse besser lesbar. Im in diesem Beispiel wird am deutlichsten wie ValueObjects einzusetzten werden können. Die Darstellung der Informationen wirkt sich positiv auf die Wartbarkeit des Codes aus.
+
+## Sicherheit in der parallelen Programmierung
+Während der parallelen Codeausführung kann es vorkommen, dass verschiedene Threads die Werte, die Objekte tragen, ändern wollen. In diesem Fall tritt eine "Race Condition" auf. Aufgrund der "Race Condition" kann das Programm bei jeder Ausführung unterschiedliche Ergebnisse liefern. Da Wertobjekte unveränderlich sind, können sie keine "Race Condition" auslösen.
 
 ## This Demo is written in C# for NET6
