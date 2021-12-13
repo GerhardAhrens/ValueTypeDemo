@@ -9,7 +9,7 @@
 // <date>25.11.2021</date>
 //
 // <summary>
-// Klasse für Domain ValueType Probability (als Struct)
+// Klasse für Entity ValueType Probability (als Struct)
 // </summary>
 //-----------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ namespace EasyPrototyping.Entity
 
         public decimal WeightOutcome(double outcome)
         {
-            return _value * outcome;
+            return _value * Convert.ToDecimal(outcome);
         }
     }
 }

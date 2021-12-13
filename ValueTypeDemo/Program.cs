@@ -1,4 +1,4 @@
-﻿using EasyPrototyping.DomainType;
+﻿using EasyPrototyping.Entity;
 
 using System.Windows.Forms;
 
@@ -22,6 +22,10 @@ public class Program
         }
 
         Firstname firstName = new Firstname("gerhard");
+        if (firstName != null)
+        {
+            MessageBox.Show($"{firstName.Value}\n{firstName.PhoneticCode}");
+        }
 
     }
 }

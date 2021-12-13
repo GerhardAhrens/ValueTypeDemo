@@ -9,7 +9,7 @@
 // <date>25.11.2021</date>
 //
 // <summary>
-// Klasse für Domain ValueType Email
+// Klasse für Entity ValueType Email
 // </summary>
 //-----------------------------------------------------------------------
 
