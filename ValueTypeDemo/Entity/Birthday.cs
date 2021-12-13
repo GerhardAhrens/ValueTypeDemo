@@ -15,7 +15,11 @@
 
 namespace EasyPrototyping.Entity
 {
-    public struct Birthday : IEquatable<Birthday>, IComparable<Birthday>, IFormattable
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Birthday : IEquatable<Birthday>, IComparable<Birthday>, IFormattable
     {
         private readonly DateTime _value;
 
@@ -54,47 +58,6 @@ namespace EasyPrototyping.Entity
             get { return this.Value.Year; }
         }
 
-        public static implicit operator Birthday(DateTime value)
-        {
-            return new Birthday(value);
-        }
-
-        public static implicit operator DateTime(Birthday value)
-        {
-            return new DateTime(value.Year, value.Month, value.Day);
-        }
-
-        public static bool operator ==(Birthday left, Birthday right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Birthday left, Birthday right)
-        {
-            return !left.Equals(right);
-        }
-
-        public override int GetHashCode()
-        {
-            return 207501131 ^ this.Value.GetHashCode();
-        }
-
-        public override bool Equals(Object obj)
-        {
-            if ((obj is Birthday) == false)
-            {
-                return false;
-            }
-
-            Birthday other = (Birthday)obj;
-            return Equals(other);
-        }
-
-        public override string ToString()
-        {
-            return this.Value.ToString("d");
-        }
-
         public string ToString(string format)
         {
             return this.Value.ToString(format);
@@ -115,7 +78,32 @@ namespace EasyPrototyping.Entity
             return (int)days;
         }
 
+        #region Implementation of override methodes
+        public override int GetHashCode()
+        {
+            return GetEqualityComponents()
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
+        }
+
+        public override string ToString()
+        {
+            return this.Value.ToString("d");
+        }
+        #endregion Implementation of override methodes
+
         #region Implementation of IEquatable<Birthday>
+
+        public override bool Equals(Object obj)
+        {
+            if ((obj is Birthday) == false)
+            {
+                return false;
+            }
+
+            Birthday other = (Birthday)obj;
+            return Equals(other);
+        }
 
         public bool Equals(Birthday other)
         {
@@ -137,7 +125,7 @@ namespace EasyPrototyping.Entity
 
         #region Implementation of IFormattable
 
-        public String ToString(String format, IFormatProvider formatProvider)
+        public string ToString(String format, IFormatProvider formatProvider)
         {
             return this.Value.ToString(format, formatProvider);
         }
@@ -160,5 +148,32 @@ namespace EasyPrototyping.Entity
             return ((DateTime)this.Value).ToString(provider);
         }
         #endregion Implementation of IConvertibles
+
+        #region Implementation of overload operators
+        public static implicit operator Birthday(DateTime value)
+        {
+            return new Birthday(value);
+        }
+
+        public static implicit operator DateTime(Birthday value)
+        {
+            return new DateTime(value.Year, value.Month, value.Day);
+        }
+
+        public static bool operator ==(Birthday left, Birthday right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Birthday left, Birthday right)
+        {
+            return !left.Equals(right);
+        }
+        #endregion Implementation of overload operators
+
+        private IEnumerable<object?> GetEqualityComponents()
+        {
+            yield return this.Value;
+        }
     }
 }

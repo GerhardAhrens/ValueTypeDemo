@@ -1,6 +1,6 @@
 ﻿using EasyPrototyping.Entity;
 
-using System.Windows.Forms;
+using System.Windows;
 
 public class Program
 {
@@ -25,6 +25,16 @@ public class Program
         if (firstName != null)
         {
             MessageBox.Show($"{firstName.Value}\n{firstName.PhoneticCode}");
+        }
+
+        Address adr1 = new Address("Deutschland","68195","Musterstadt","Musterstrasse");
+        if (adr1 != null)
+        {
+            Address adr2 = new Address("Deutschland", "68195", "Musterstadt", "Musterstrasse");
+            if (adr1 == adr2)
+            {
+
+            }
         }
 
     }
