@@ -1,5 +1,4 @@
-# Value Objects
-<img src="./ValueObject.png" style="width:100px;"/>
+# Value Objects <img src="./ValueObject.png" style="width:50px;"/>
 
 # Was sind Value Objects?
 Value Objects sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiker Aspekt, ist wenn die Benutzung von Typen 
