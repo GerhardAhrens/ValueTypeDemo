@@ -1,3 +1,17 @@
+//-----------------------------------------------------------------------
+// <copyright file="Address.cs" company="Lifeprojects.de">
+//     Class: Address
+//     Copyright © Lifeprojects.de 2021
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>gerhard.ahrens@lifeprojects.de</email>
+// <date>13.12.2021</date>
+//
+// <summary>
+// Klasse für Entity ValueType Address
+// </summary>
+//-----------------------------------------------------------------------
 
 namespace EasyPrototyping.Entity
 {
@@ -5,7 +19,9 @@ namespace EasyPrototyping.Entity
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Address : IEquatable<Address>, IComparable<Address>
+    using ValueTypeDemo.Core;
+
+    public class Address : ValueObjectBase
     {
         public Address(string country, string zip,string city, string street)
         {
@@ -43,37 +59,15 @@ namespace EasyPrototyping.Entity
 
         public string Street { get; private set; }
 
-        #region Implementation of IEquatable<Address>
-        public bool Equals(Address other)
-        {
-            return this.Country == other?.Country && this.Zip == other?.Zip && this.City == other?.City && this.Street == other?.Street;
-        }
-
+        #region Implementation of override methodes
         public override bool Equals(object @this)
         {
-            if (ReferenceEquals(null, @this))
-            {
-                return false;
-            }
-
-            return @this is Address && Equals((Address)@this);
+            return base.Equals(@this);
         }
-        #endregion Implementation of IEquatable<Address>
 
-        #region Implementation of IComparable<Address>
-        public int CompareTo(Address other) => this.Country.CompareTo(other.Country) 
-            & this.Zip.CompareTo(other.Zip) 
-            & this.City.CompareTo(other.City)
-            & this.Street.CompareTo(other.Street);
-
-        #endregion Implementation of IComparable<Address>
-
-        #region Implementation of override methodes
         public override int GetHashCode()
         {
-            return GetEqualityComponents()
-                .Select(x => x != null ? x.GetHashCode() : 0)
-                .Aggregate((x, y) => x ^ y);
+            return base.GetHashCode();
         }
 
         public override string ToString()
@@ -85,16 +79,16 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Address a, Address b)
         {
-            return a.Equals(b);
+            return EqualOperator(a,b);
         }
 
         public static bool operator !=(Address a, Address b)
         {
-            return !(a == b);
+            return NotEqualOperator(a,b);
         }
         #endregion Implementation of overload operators
 
-        private IEnumerable<object?> GetEqualityComponents()
+        protected override IEnumerable<object?> GetEqualityComponents()
         {
             yield return this.Country;
             yield return this.Zip;
