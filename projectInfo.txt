@@ -1,1 +1,0 @@
-https://medium.com/c-sharp-progarmming/value-objects-and-their-usage-with-entity-framework-a434f1414103
