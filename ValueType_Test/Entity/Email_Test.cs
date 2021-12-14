@@ -20,6 +20,7 @@ namespace ValueType_Test
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Reflection;
 
@@ -96,6 +97,8 @@ namespace ValueType_Test
         {
             Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
             IEnumerable<string> values = emailA.GetValues();
+            Assert.IsNotNull(values);
+            Assert.IsTrue(values.Count() == 3);
         }
 
         [TestMethod]
@@ -103,12 +106,16 @@ namespace ValueType_Test
         {
             Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
             IEnumerable<PropertyInfo> propList = emailA.GetProperties();
+            Assert.IsNotNull(propList);
+            Assert.IsTrue(propList.Count() == 3);
         }
 
-        [DataRow("", "")]
+        [DataRow("gerhard.ahrens@lifeprojects.de", "gerhard.ahrens@lifeprojects.de")]
         [TestMethod]
-        public void Methode_B(string input, string expected)
+        public void EMail_ToString(string input, string expected)
         {
+            Email emailA = new Email(input);
+            Assert.IsTrue(emailA.ToString() == "gerhard.ahrens@lifeprojects.de");
         }
 
         [TestMethod]

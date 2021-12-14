@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Reflection;
 
     [Serializable]
@@ -27,6 +28,38 @@
         protected static bool NotEqualOperator(ValueObjectBase left, ValueObjectBase right)
         {
             return !(EqualOperator(left, right));
+        }
+
+        protected static bool GreaterThanEqualOperator(ValueObjectBase left, ValueObjectBase right)
+        {
+            return default;
+        }
+
+        protected static bool LessThanEqualOperator(ValueObjectBase left, ValueObjectBase right)
+        {
+            return default;
+        }
+
+        protected static bool EqualOperatorGeneric<T>(T a, T b)
+        {
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.Equal(paramA, paramB);
+            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeEqualityOperator(a, b);
+        }
+
+        protected static bool NotEqualOperatorGeneric<T>(T a, T b)
+        {
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.NotEqual(paramA, paramB);
+            var invokeInequalityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeInequalityOperator(a, b);
         }
 
         public override bool Equals(object? obj)
