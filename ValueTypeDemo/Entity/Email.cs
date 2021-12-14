@@ -63,12 +63,12 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Email a, Email b)
         {
-            return a.Equals(b);
+            return EqualOperator(a, b);
         }
 
         public static bool operator !=(Email a, Email b)
         {
-            return !(a == b);
+            return NotEqualOperator(a, b);
         }
         #endregion Implementation of overload operators
 

@@ -60,7 +60,12 @@
             return (T)this.MemberwiseClone();
         }
 
-        public IEnumerable<PropertyInfo> GetProperties<T>()
+        public IEnumerable<string> GetValues()
+        {
+            return this.GetEqualityComponents().Select(x => x.ToString());
+        }
+
+        public IEnumerable<PropertyInfo> GetProperties()
         {
             return this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).ToList();
         }

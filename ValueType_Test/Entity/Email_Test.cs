@@ -20,6 +20,8 @@ namespace ValueType_Test
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using System;
+    using System.Collections.Generic;
+    using System.Reflection;
 
     [TestClass]
     public class Email_Test : BaseTest
@@ -42,6 +44,14 @@ namespace ValueType_Test
         }
 
         [TestMethod]
+        public void CreateEmptyObjectWithEmptyAdress()
+        {
+            Email email = new Email(string.Empty);
+            Assert.IsNotNull(email);
+            Assert.IsFalse(email.IsConfirmed);
+        }
+
+        [TestMethod]
         public void CreateObjectWrongMailAdress()
         {
             Email email = new Email("gerhard.ahrens@lifeprojects");
@@ -55,6 +65,44 @@ namespace ValueType_Test
             Email email = new Email("gerhard.ahrens@lifeprojects.de");
             Assert.IsNotNull(email);
             Assert.IsTrue(email.IsConfirmed);
+        }
+
+        [TestMethod]
+        public void CreateObjectWithEquals()
+        {
+            Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
+            Email emailB = new Email("gerhard.ahrens@lifeprojects.de");
+            Assert.IsTrue(emailA == emailB);
+        }
+
+        [TestMethod]
+        public void CreateObjectWithNotEquals()
+        {
+            Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
+            Email emailB = new Email("gerhard.ahrens@musterdomain.de");
+            Assert.IsFalse(emailA == emailB);
+        }
+
+        [TestMethod]
+        public void CreateObjectWithClone()
+        {
+            Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
+            Email emailB = emailA.CloneTo<Email>();
+            Assert.IsTrue(emailA == emailB);
+        }
+
+        [TestMethod]
+        public void GetValues()
+        {
+            Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
+            IEnumerable<string> values = emailA.GetValues();
+        }
+
+        [TestMethod]
+        public void GetProperties()
+        {
+            Email emailA = new Email("gerhard.ahrens@lifeprojects.de");
+            IEnumerable<PropertyInfo> propList = emailA.GetProperties();
         }
 
         [DataRow("", "")]
