@@ -16,84 +16,101 @@
 namespace EasyPrototyping.Entity
 {
     using System;
+    using System.Collections.Generic;
 
-    public class Probability : IEquatable<Probability>, IComparable<Probability>
+    using ValueTypeDemo.Core;
+
+    public class Probability : ValueObjectBase
     {
-        public static bool operator ==(Probability x, Probability y)
-        {
-            return x.Equals(y);
-        }
-
-        public static bool operator !=(Probability x, Probability y)
-        {
-            return !(x == y);
-        }
-
-        public static bool operator >(Probability x, Probability y)
-        {
-            return x.CompareTo(y) > 0;
-        }
-
-        public static bool operator <(Probability x, Probability y)
-        {
-            return x.CompareTo(y) < 0;
-        }
-
-        public static Probability operator +(Probability x, Probability y)
-        {
-            return new Probability(x._value + y._value);
-        }
-
-        public static Probability operator -(Probability x, Probability y)
-        {
-            return new Probability(x._value - y._value);
-        }
-
-        private decimal _value;
-
         public Probability(decimal value)
         {
             if (value < 0 || value > 1)
             {
-                throw new ArgumentOutOfRangeException("value");
+                throw new ArgumentOutOfRangeException("value","The range must 0 between 1");
             }
 
-            _value = value;
+            this.Value = value;
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Probability && Equals((Probability)obj);
-        }
+        public decimal Value { get;}
 
-        public override int GetHashCode()
+        public double ToDouble()
         {
-            return _value.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return (_value * 100).ToString() + "%";
-        }
-
-        public bool Equals(Probability other)
-        {
-            return other._value.Equals(_value);
-        }
-
-        public int CompareTo(Probability other)
-        {
-            return _value.CompareTo(other._value);
-        }
-
-        public decimal ToDouble()
-        {
-            return _value;
+            return Convert.ToDouble(this.Value);
         }
 
         public decimal WeightOutcome(double outcome)
         {
-            return _value * Convert.ToDecimal(outcome);
+            return this.Value * Convert.ToDecimal(outcome);
+        }
+
+        #region Implementation of overload operators
+        public static bool operator ==(Probability a, Probability b)
+        {
+            return EqualOperator(a, b);
+        }
+
+        public static bool operator !=(Probability a, Probability b)
+        {
+            return NotEqualOperator(a, b);
+        }
+
+        public static bool operator >(Probability a, Probability b)
+        {
+            return GreaterThanOperator(a, b);
+        }
+
+        public static bool operator >= (Probability a, Probability b)
+        {
+            return GreaterThanOrEqualOperator(a, b);
+        }
+
+        public static bool operator <(Probability a, Probability b)
+        {
+            return LessThanOperator(a, b);
+        }
+
+        public static bool operator <=(Probability a, Probability b)
+        {
+            return LessThanOrEqualOperator(a, b);
+        }
+
+        public static Probability operator +(Probability a, Probability b)
+        {
+            return new Probability(a.Value + b.Value);
+        }
+
+        public static Probability operator -(Probability a, Probability b)
+        {
+            return new Probability(a.Value - b.Value);
+        }
+        #endregion Implementation of overload operators
+
+        #region Implementation of override methodes
+        public override bool Equals(object @this)
+        {
+            return base.Equals(@this);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return this.Value.ToString();
+        }
+
+        public string ToString(string format)
+        {
+            return this.Value.ToString(format);
+        }
+        #endregion Implementation of override methodes
+
+        protected override IEnumerable<object?> GetEqualityComponents()
+        {
+            yield return this.Value;
         }
     }
 }

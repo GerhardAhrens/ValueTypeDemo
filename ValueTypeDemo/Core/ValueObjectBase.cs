@@ -30,17 +30,51 @@
             return !(EqualOperator(left, right));
         }
 
-        protected static bool GreaterThanEqualOperator(ValueObjectBase left, ValueObjectBase right)
+        protected static bool GreaterThanOperator<T>(T a, T b)
         {
-            return default;
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.GreaterThan(paramA, paramB);
+            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeEqualityOperator(a, b);
         }
 
-        protected static bool LessThanEqualOperator(ValueObjectBase left, ValueObjectBase right)
+        protected static bool GreaterThanOrEqualOperator<T>(T a, T b)
         {
-            return default;
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.GreaterThanOrEqual(paramA, paramB);
+            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeEqualityOperator(a, b);
         }
 
-        protected static bool EqualOperatorGeneric<T>(T a, T b)
+        protected static bool LessThanOperator<T>(T a, T b)
+        {
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.LessThan(paramA, paramB);
+            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeEqualityOperator(a, b);
+        }
+
+        protected static bool LessThanOrEqualOperator<T>(T a, T b)
+        {
+            ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
+            ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
+
+            BinaryExpression body = Expression.LessThanOrEqual(paramA, paramB);
+            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+
+            return invokeEqualityOperator(a, b);
+        }
+
+        protected static bool EqualOperator<T>(T a, T b)
         {
             ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
@@ -51,7 +85,7 @@
             return invokeEqualityOperator(a, b);
         }
 
-        protected static bool NotEqualOperatorGeneric<T>(T a, T b)
+        protected static bool NotEqualOperator<T>(T a, T b)
         {
             ParameterExpression paramA = Expression.Parameter(typeof(T), nameof(a));
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
