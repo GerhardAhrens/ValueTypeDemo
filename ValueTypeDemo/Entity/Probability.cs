@@ -55,7 +55,7 @@ namespace EasyPrototyping.Entity
             return NotEqualOperator(a, b);
         }
 
-        public static bool operator >(Probability a, Probability b)
+        public static bool operator > (Probability a, Probability b)
         {
             return GreaterThanOperator(a, b);
         }
@@ -65,7 +65,7 @@ namespace EasyPrototyping.Entity
             return GreaterThanOrEqualOperator(a, b);
         }
 
-        public static bool operator <(Probability a, Probability b)
+        public static bool operator < (Probability a, Probability b)
         {
             return LessThanOperator(a, b);
         }
@@ -75,12 +75,12 @@ namespace EasyPrototyping.Entity
             return LessThanOrEqualOperator(a, b);
         }
 
-        public static Probability operator +(Probability a, Probability b)
+        public static Probability operator + (Probability a, Probability b)
         {
             return new Probability(a.Value + b.Value);
         }
 
-        public static Probability operator -(Probability a, Probability b)
+        public static Probability operator - (Probability a, Probability b)
         {
             return new Probability(a.Value - b.Value);
         }

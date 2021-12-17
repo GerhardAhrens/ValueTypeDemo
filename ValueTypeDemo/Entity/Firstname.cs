@@ -16,16 +16,17 @@
 namespace EasyPrototyping.Entity
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.RegularExpressions;
 
+    using ValueTypeDemo.Core;
+
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
-    public class Firstname : IEquatable<Firstname>, IComparable<Firstname>
+    public class Firstname : ValueObjectBase
     {
         public Firstname(string value = "", bool firstCharUpper = true)
         {
-            this.Id = Guid.NewGuid();
-
             if (firstCharUpper == true)
             {
                 this.PhoneticCode = value.SoundEx();
@@ -37,51 +38,43 @@ namespace EasyPrototyping.Entity
             }
         }
 
-        public Guid Id { get; private set; }
-
         public string Value { get; }
 
         public string PhoneticCode { get; }
 
-        public bool Equals(Firstname other)
-        {
-            return this.Value == other?.Value;
-        }
-
+        #region Implementation of override methodes
         public override bool Equals(object @this)
         {
-            if (ReferenceEquals(null, @this))
-            {
-                return false;
-            }
-
-            return @this is Firstname && Equals((Firstname)@this);
+            return base.Equals(@this);
         }
-
-        public int CompareTo(Firstname other) => Value.CompareTo(other.Value);
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((this.Value != null ? this.Value.GetHashCode() : 0) * 397);
-            }
+            return base.GetHashCode();
         }
-
 
         public override string ToString()
         {
             return this.Value;
         }
+        #endregion Implementation of override methodes
 
+        #region Implementation of overload operators
         public static bool operator ==(Firstname a, Firstname b)
         {
-            return a.Equals(b);
+            return EqualOperator(a, b);
         }
 
         public static bool operator !=(Firstname a, Firstname b)
         {
-            return !(a == b);
+            return NotEqualOperator(a, b);
+        }
+        #endregion Implementation of overload operators
+
+        protected override IEnumerable<object?> GetEqualityComponents()
+        {
+            yield return this.Value;
+            yield return this.PhoneticCode;
         }
     }
 }

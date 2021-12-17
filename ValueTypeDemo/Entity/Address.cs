@@ -23,41 +23,44 @@ namespace EasyPrototyping.Entity
 
     public class Address : ValueObjectBase
     {
-        public Address(string country, string zip,string city, string street)
+        public Address(string country, string zip, string city, string street)
         {
-            if (string.IsNullOrEmpty(country))
-            {
-                throw new ArgumentNullException(nameof(country));
-            }
-
-            if (string.IsNullOrEmpty(zip))
-            {
-                throw new ArgumentNullException(nameof(zip));
-            }
-
-            if (string.IsNullOrEmpty(city))
-            {
-                throw new ArgumentNullException(nameof(city));
-            }
-
-            if (string.IsNullOrEmpty(street))
-            {
-                throw new ArgumentNullException(nameof(street));
-            }
+            country.IsArgumentEmptyOrNull(nameof(country));
+            zip.IsArgumentEmptyOrNull(nameof(zip));
+            city.IsArgumentEmptyOrNull(nameof(city));
+            street.IsArgumentEmptyOrNull(nameof(street));
 
             this.Country = country;
             this.Zip = zip;
             this.City = city;
             this.Street = street;
+            this.StreetAdd = string.Empty;
         }
 
-        public string Country { get; private set; }
+        public Address(string country, string zip,string city, string street, string streetAdd)
+        {
+            country.IsArgumentEmptyOrNull(nameof(country));
+            zip.IsArgumentEmptyOrNull(nameof(zip));
+            city.IsArgumentEmptyOrNull(nameof(city));
+            street.IsArgumentEmptyOrNull(nameof(street));
+            streetAdd.IsArgumentEmptyOrNull(nameof(streetAdd));
 
-        public string Zip { get; private set; }
+            this.Country = country;
+            this.Zip = zip;
+            this.City = city;
+            this.Street = street;
+            this.StreetAdd = streetAdd;
+        }
 
-        public string City { get; private set; }
+        public string Country { get; }
 
-        public string Street { get; private set; }
+        public string Zip { get; }
+
+        public string City { get; }
+
+        public string Street { get;  }
+
+        public string StreetAdd { get; }
 
         #region Implementation of override methodes
         public override bool Equals(object @this)
@@ -94,6 +97,7 @@ namespace EasyPrototyping.Entity
             yield return this.Zip;
             yield return this.City;
             yield return this.Street;
+            yield return this.StreetAdd;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Email.cs" company="Lifeprojects.de">
-//     Class: Email
+// <copyright file="Birthday.cs" company="Lifeprojects.de">
+//     Class: Birthday
 //     Copyright © Lifeprojects.de 2021
 // </copyright>
 //
@@ -9,7 +9,7 @@
 // <date>25.11.2021</date>
 //
 // <summary>
-// Klasse für Entity ValueType Email
+// Klasse für Entity ValueType Birthday
 // </summary>
 //-----------------------------------------------------------------------
 
@@ -19,29 +19,36 @@ namespace EasyPrototyping.Entity
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Birthday : IEquatable<Birthday>, IComparable<Birthday>, IFormattable
-    {
-        private readonly DateTime _value;
+    using ValueTypeDemo.Core;
 
+    public class Birthday : ValueObjectBase, IFormattable
+    {
         public Birthday(DateTime value)
         {
-            if (value > new DateTime(1900, 1, 1) && value < new DateTime(2199, 1, 1))
+            if (value > new DateTime(1900, 1, 1) && value < new DateTime(2199, 12, 31))
             {
-                _value = value;
+                this.Value = value;
             }
             else
             {
-                throw new ArgumentOutOfRangeException("value", "variable value must be between 1900/1/1 and 2199/1/1.");
+                throw new ArgumentOutOfRangeException("value", "variable value must be between 1900/1/1 and 2199/12/31.");
             }
         }
 
-        public DateTime Value
+        public Birthday(int year, int month, int day)
         {
-            get
+
+            if (new DateTime(year,month,day) > new DateTime(1900, 1, 1) && new DateTime(year, month, day) < new DateTime(2199, 12, 31))
             {
-                return _value;
+                this.Value = new DateTime(year, month, day);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("value", "variable value must be between 1900/1/1 and 2199/12/31.");
             }
         }
+
+        public DateTime Value { get; }
 
         public int Day
         {
@@ -63,6 +70,11 @@ namespace EasyPrototyping.Entity
             return this.Value.ToString(format);
         }
 
+        public DateTime ToDateTime()
+        {
+            return this.Value;
+        }
+
         public int AgeInYear()
         {
             return this.Value.GetAge();
@@ -79,11 +91,14 @@ namespace EasyPrototyping.Entity
         }
 
         #region Implementation of override methodes
+        public override bool Equals(object @this)
+        {
+            return base.Equals(@this);
+        }
+
         public override int GetHashCode()
         {
-            return GetEqualityComponents()
-                .Select(x => x != null ? x.GetHashCode() : 0)
-                .Aggregate((x, y) => x ^ y);
+            return base.GetHashCode();
         }
 
         public override string ToString()
@@ -91,37 +106,6 @@ namespace EasyPrototyping.Entity
             return this.Value.ToString("d");
         }
         #endregion Implementation of override methodes
-
-        #region Implementation of IEquatable<Birthday>
-
-        public override bool Equals(Object obj)
-        {
-            if ((obj is Birthday) == false)
-            {
-                return false;
-            }
-
-            Birthday other = (Birthday)obj;
-            return Equals(other);
-        }
-
-        public bool Equals(Birthday other)
-        {
-            return this.Value == other.Value;
-        }
-
-        #endregion Implementation of IEquatable<Birthday>
-
-        #region Implementation of IComparable<Birthday>
-
-        public int CompareTo(Birthday other)
-        {
-            int valueCompare = this.Value.CompareTo(other.Value);
-
-            return valueCompare;
-        }
-
-        #endregion Implementation of IComparable<Birthday>
 
         #region Implementation of IFormattable
 
@@ -132,46 +116,39 @@ namespace EasyPrototyping.Entity
 
         #endregion Implementation of IFormattable
 
-        #region Implementation of IConvertible
-        public TypeCode GetTypeCode()
-        {
-            return TypeCode.Object;
-        }
-
-        public DateTime ToDateTime(IFormatProvider provider)
-        {
-            return this.Value;
-        }
-
-        public string ToString(IFormatProvider provider)
-        {
-            return ((DateTime)this.Value).ToString(provider);
-        }
-        #endregion Implementation of IConvertibles
-
         #region Implementation of overload operators
-        public static implicit operator Birthday(DateTime value)
+        public static bool operator ==(Birthday a, Birthday b)
         {
-            return new Birthday(value);
+            return EqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
         }
 
-        public static implicit operator DateTime(Birthday value)
+        public static bool operator !=(Birthday a, Birthday b)
         {
-            return new DateTime(value.Year, value.Month, value.Day);
+            return NotEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
         }
 
-        public static bool operator ==(Birthday left, Birthday right)
+        public static bool operator > (Birthday a, Birthday b)
         {
-            return left.Equals(right);
+            return GreaterThanOperator(a, b);
         }
 
-        public static bool operator !=(Birthday left, Birthday right)
+        public static bool operator >=(Birthday a, Birthday b)
         {
-            return !left.Equals(right);
+            return GreaterThanOrEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+        }
+
+        public static bool operator < (Birthday a, Birthday b)
+        {
+            return LessThanOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+        }
+
+        public static bool operator <=(Birthday a, Birthday b)
+        {
+            return LessThanOrEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
         }
         #endregion Implementation of overload operators
 
-        private IEnumerable<object?> GetEqualityComponents()
+        protected override IEnumerable<object?> GetEqualityComponents()
         {
             yield return this.Value;
         }

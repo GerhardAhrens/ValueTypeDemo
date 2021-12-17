@@ -41,7 +41,7 @@ namespace EasyPrototyping.Entity
 
         public string Value { get; }
 
-        public bool IsConfirmed { get; private set; }
+        public bool IsConfirmed { get; }
 
         #region Implementation of override methodes
         public override bool Equals(object @this)
@@ -61,12 +61,12 @@ namespace EasyPrototyping.Entity
         #endregion Implementation of override methodes
 
         #region Implementation of overload operators
-        public static bool operator ==(Email a, Email b)
+        public static bool operator == (Email a, Email b)
         {
             return EqualOperator(a, b);
         }
 
-        public static bool operator !=(Email a, Email b)
+        public static bool operator != (Email a, Email b)
         {
             return NotEqualOperator(a, b);
         }

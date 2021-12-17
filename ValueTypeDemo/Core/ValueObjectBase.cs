@@ -36,9 +36,9 @@
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
 
             BinaryExpression body = Expression.GreaterThan(paramA, paramB);
-            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+            var invokeGreaterThanOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
 
-            return invokeEqualityOperator(a, b);
+            return invokeGreaterThanOperator(a, b);
         }
 
         protected static bool GreaterThanOrEqualOperator<T>(T a, T b)
@@ -47,9 +47,9 @@
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
 
             BinaryExpression body = Expression.GreaterThanOrEqual(paramA, paramB);
-            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+            var invokeGreaterThanOrEqualOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
 
-            return invokeEqualityOperator(a, b);
+            return invokeGreaterThanOrEqualOperator(a, b);
         }
 
         protected static bool LessThanOperator<T>(T a, T b)
@@ -58,9 +58,9 @@
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
 
             BinaryExpression body = Expression.LessThan(paramA, paramB);
-            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+            var invokeLessThanOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
 
-            return invokeEqualityOperator(a, b);
+            return invokeLessThanOperator(a, b);
         }
 
         protected static bool LessThanOrEqualOperator<T>(T a, T b)
@@ -69,9 +69,9 @@
             ParameterExpression paramB = Expression.Parameter(typeof(T), nameof(b));
 
             BinaryExpression body = Expression.LessThanOrEqual(paramA, paramB);
-            var invokeEqualityOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
+            var invokeLessThanOrEqualOperator = Expression.Lambda<Func<T, T, bool>>(body, paramA, paramB).Compile();
 
-            return invokeEqualityOperator(a, b);
+            return invokeLessThanOrEqualOperator(a, b);
         }
 
         protected static bool EqualOperator<T>(T a, T b)
