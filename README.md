@@ -1,4 +1,5 @@
 # Value Objects <img src="./ValueObject.png" style="width:50px;"/>
+## This Demo is written in C# for NET5
 
 # Was sind Value Objects?
 Value Objects sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiger Aspekt, ist wenn die Benutzung von Typen 
@@ -34,4 +35,11 @@ Betrachtet man die obigen Beipiele, so ist das zweite Beispiel der Person-Klasse
 ## Sicherheit in der parallelen Programmierung
 Während der parallelen Codeausführung kann es vorkommen, dass verschiedene Threads die Werte, die Objekte tragen, ändern wollen. In diesem Fall tritt eine "Race Condition" auf. Aufgrund der "Race Condition" kann das Programm bei jeder Ausführung unterschiedliche Ergebnisse liefern. Da Wertobjekte unveränderlich sind, können sie keine "Race Condition" auslösen.
 
-## This Demo is written in C# for NET6
+## Vor- und Nachteile von Value Objects
+Bei der Verwendung von Value Objects sehe ich folgende wichtige Vorteile
+- Konkrete Beschreibung eines Wertes
+- Erweiterungen, die nur auf diesem Typ wirken (z.B. durch Extensions)
+- Value Objects können nach dem Erstellen nicht mehr geändert werden (Immutable)
+
+Bei den Nachteilen wäre zu nennen den Aufwand zur Erstellung von Value Objects den den damit verbundenen Test, dieser sehr ausführlich sein sollte da die Value Objects in der gesammten Applikation verwendet werden.
+Weiter gibt es sicher auch Situationen, das eine Value Objects nach dem Erstellen geändert werden muß. Hier müssen dann nachträglich sepzielle Methoden erstellt werden.
