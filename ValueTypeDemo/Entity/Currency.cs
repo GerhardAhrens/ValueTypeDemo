@@ -23,24 +23,29 @@ namespace EasyPrototyping.Entity
 
     public class Currency : ValueObjectBase
     {
+        private const decimal FractionScale = 1E9M;
+
         public Currency(decimal value)
         {
             this.CultureInfo = CultureInfo.CurrentCulture;
             this.Value = value;
             this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+            this.CalcDecimalFraction();
         }
 
-        public Currency(decimal value, CultureInfo cultureInfo)
+       public Currency(decimal value, CultureInfo cultureInfo)
         {
             this.CultureInfo = cultureInfo;
             this.Value = value;
             this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+            this.CalcDecimalFraction();
         }
 
         public Currency(decimal value, string currencySymbol)
         {
             this.Value = value;
             this.CurrencySymbol = currencySymbol;
+            this.CalcDecimalFraction();
         }
 
         public CultureInfo CultureInfo { get; }
@@ -48,6 +53,10 @@ namespace EasyPrototyping.Entity
         public decimal Value { get;}
 
         public string CurrencySymbol { get; }
+
+        public Int64 Units { get; private set; }
+
+        public Int32 DecimalFraction { get; private set; }
 
         public string DecimalSeparator
         {
@@ -105,35 +114,65 @@ namespace EasyPrototyping.Entity
             return Convert.ToDecimal(this.Value);
         }
 
+        public Currency FullHundredRoundDown()
+        {
+            int result = Convert.ToInt32(Math.Floor(this.Value));
+
+            int rest = result % 100;
+            if (rest < 99)
+            {
+                return new Currency(result - rest);
+            }
+            else
+            {
+                return new Currency(result + (100 - rest));
+            }
+        }
+
+        public Currency FullHundredRound()
+        {
+            int result = Convert.ToInt32(Math.Floor(this.Value));
+
+            int rest = result % 100;
+            if (rest < 50)
+            {
+                return new Currency(result - rest);
+            }
+            else
+            {
+                return new Currency(result + (100 - rest));
+            }
+        }
+
         #region Implementation of overload operators
         public static bool operator ==(Currency a, Currency b)
         {
-            return EqualOperator(a, b);
+            return EqualOperator(a.Value, b.Value);
         }
 
         public static bool operator !=(Currency a, Currency b)
         {
-            return NotEqualOperator(a, b);
+            return NotEqualOperator(a.Value, b.Value);
         }
 
         public static bool operator > (Currency a, Currency b)
         {
-            return GreaterThanOperator(a, b);
+            return GreaterThanOperator(a.Value, b.Value);
         }
 
         public static bool operator >= (Currency a, Currency b)
         {
-            return GreaterThanOrEqualOperator(a, b);
+            return GreaterThanOrEqualOperator(a.Value, b.Value);
         }
 
         public static bool operator < (Currency a, Currency b)
         {
-            return LessThanOperator(a, b);
+            return LessThanOperator(a.Value, b.Value);
         }
 
         public static bool operator <=(Currency a, Currency b)
         {
-            return LessThanOrEqualOperator(a, b);
+            return LessThanOrEqualOperator(a.Value, b.Value);
         }
 
         public static Currency operator + (Currency a, Currency b)
@@ -141,10 +180,55 @@ namespace EasyPrototyping.Entity
             return new Currency(a.Value + b.Value);
         }
 
+        public static Currency operator +(Currency a, decimal b)
+        {
+            return new Currency(a.Value + b);
+        }
+
         public static Currency operator - (Currency a, Currency b)
         {
             return new Currency(a.Value - b.Value);
         }
+
+        public static Currency operator - (Currency a, decimal b)
+        {
+            return new Currency(a.Value - b);
+        }
+
+        public static Currency operator /(Currency a, Currency b)
+        {
+            if (b.Value > 0)
+            {
+                return new Currency(a.Value / b.Value);
+            }
+            else
+            {
+                throw new DivideByZeroException($"DivideByZero: Value '{a.Value}/{b.Value}' not possible! ");
+            }
+        }
+
+        public static Currency operator /(Currency a, decimal b)
+        {
+            if (b > 0)
+            {
+                return new Currency(a.Value / b);
+            }
+            else
+            {
+                throw new DivideByZeroException($"DivideByZero: Value '{a.Value}/{b}' not possible! ");
+            }
+        }
+
+        public static Currency operator *(Currency a, Currency b)
+        {
+            return new Currency(a.Value * b.Value);
+        }
+
+        public static Currency operator *(Currency a, decimal b)
+        {
+            return new Currency(a.Value * b);
+        }
+
         #endregion Implementation of overload operators
 
         #region Implementation of override methodes
@@ -173,6 +257,18 @@ namespace EasyPrototyping.Entity
         {
             yield return this.Value;
             yield return this.CurrencySymbol;
+        }
+
+        private void CalcDecimalFraction()
+        {
+            this.Units = (Int64)this.Value;
+            this.DecimalFraction = (int)(((decimal)this.Value % 1) * 100);
+
+            if (this.DecimalFraction >= FractionScale)
+            {
+                this.Units += 1;
+                this.DecimalFraction = this.DecimalFraction - (Int32)FractionScale;
+            }
         }
     }
 }
