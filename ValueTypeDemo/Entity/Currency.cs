@@ -17,6 +17,7 @@ namespace EasyPrototyping.Entity
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
 
     using ValueTypeDemo.Core;
 
@@ -24,19 +25,84 @@ namespace EasyPrototyping.Entity
     {
         public Currency(decimal value)
         {
+            this.CultureInfo = CultureInfo.CurrentCulture;
             this.Value = value;
+            this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
         }
 
+        public Currency(decimal value, CultureInfo cultureInfo)
+        {
+            this.CultureInfo = cultureInfo;
+            this.Value = value;
+            this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+        }
+
+        public Currency(decimal value, string currencySymbol)
+        {
+            this.Value = value;
+            this.CurrencySymbol = currencySymbol;
+        }
+
+        public CultureInfo CultureInfo { get; }
+
         public decimal Value { get;}
+
+        public string CurrencySymbol { get; }
+
+        public string DecimalSeparator
+        {
+            get
+            {
+                return this.CultureInfo.NumberFormat.CurrencyDecimalSeparator;
+            }
+        }
+
+        public string NumberGroupSeparator
+        {
+            get
+            {
+                return this.CultureInfo.NumberFormat.NumberGroupSeparator;
+            }
+        }
+
+        public bool IsNullOrEmpty
+        {
+            get
+            {
+                if (this.Value == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsNotNullOrEmpty
+        {
+            get
+            {
+                if (this.Value != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public double ToDouble()
         {
             return Convert.ToDouble(this.Value);
         }
 
-        public decimal WeightOutcome(double outcome)
+        public decimal ToDecimal()
         {
-            return this.Value * Convert.ToDecimal(outcome);
+            return Convert.ToDecimal(this.Value);
         }
 
         #region Implementation of overload operators
@@ -94,7 +160,7 @@ namespace EasyPrototyping.Entity
 
         public override string ToString()
         {
-            return this.Value.ToString();
+            return this.Value.ToString("C2");
         }
 
         public string ToString(string format)
@@ -106,6 +172,7 @@ namespace EasyPrototyping.Entity
         protected override IEnumerable<object?> GetEqualityComponents()
         {
             yield return this.Value;
+            yield return this.CurrencySymbol;
         }
     }
 }
