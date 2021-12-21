@@ -30,14 +30,25 @@ namespace EasyPrototyping.Entity
             this.CultureInfo = CultureInfo.CurrentCulture;
             this.Value = value;
             this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+            this.DecimalPlace = 2;
             this.CalcDecimalFraction();
         }
 
-       public Currency(decimal value, CultureInfo cultureInfo)
+        public Currency(decimal value, int decimalPlace)
+        {
+            this.CultureInfo = CultureInfo.CurrentCulture;
+            this.Value = value;
+            this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+            this.DecimalPlace = decimalPlace;
+            this.CalcDecimalFraction();
+        }
+
+        public Currency(decimal value, CultureInfo cultureInfo)
         {
             this.CultureInfo = cultureInfo;
             this.Value = value;
             this.CurrencySymbol = this.CultureInfo.NumberFormat.CurrencySymbol;
+            this.DecimalPlace = 2;
             this.CalcDecimalFraction();
         }
 
@@ -45,14 +56,25 @@ namespace EasyPrototyping.Entity
         {
             this.Value = value;
             this.CurrencySymbol = currencySymbol;
+            this.DecimalPlace = 2;
             this.CalcDecimalFraction();
         }
 
-        public CultureInfo CultureInfo { get; }
+        public Currency(decimal value, int decimalPlace, string currencySymbol)
+        {
+            this.Value = value;
+            this.CurrencySymbol = currencySymbol;
+            this.DecimalPlace = decimalPlace;
+            this.CalcDecimalFraction();
+        }
 
         public decimal Value { get;}
 
+        public int DecimalPlace { get; }
+
         public string CurrencySymbol { get; }
+
+        public CultureInfo CultureInfo { get; }
 
         public Int64 Units { get; private set; }
 
@@ -129,7 +151,7 @@ namespace EasyPrototyping.Entity
             }
         }
 
-        public Currency FullHundredRound()
+        public Currency FullHundredRoundUp()
         {
             int result = Convert.ToInt32(Math.Floor(this.Value));
 
@@ -150,9 +172,19 @@ namespace EasyPrototyping.Entity
             return EqualOperator(a.Value, b.Value);
         }
 
+        public static bool operator ==(Currency a, decimal b)
+        {
+            return EqualOperator(a.Value, b);
+        }
+
         public static bool operator !=(Currency a, Currency b)
         {
             return NotEqualOperator(a.Value, b.Value);
+        }
+
+        public static bool operator !=(Currency a, decimal b)
+        {
+            return NotEqualOperator(a.Value, b);
         }
 
         public static bool operator > (Currency a, Currency b)
@@ -160,9 +192,19 @@ namespace EasyPrototyping.Entity
             return GreaterThanOperator(a.Value, b.Value);
         }
 
+        public static bool operator >(Currency a, decimal b)
+        {
+            return GreaterThanOperator(a.Value, b);
+        }
+
         public static bool operator >= (Currency a, Currency b)
         {
             return GreaterThanOrEqualOperator(a.Value, b.Value);
+        }
+
+        public static bool operator >=(Currency a, decimal b)
+        {
+            return GreaterThanOrEqualOperator(a.Value, b);
         }
 
         public static bool operator < (Currency a, Currency b)
@@ -170,9 +212,19 @@ namespace EasyPrototyping.Entity
             return LessThanOperator(a.Value, b.Value);
         }
 
+        public static bool operator <(Currency a, decimal b)
+        {
+            return LessThanOperator(a.Value, b);
+        }
+
         public static bool operator <=(Currency a, Currency b)
         {
             return LessThanOrEqualOperator(a.Value, b.Value);
+        }
+
+        public static bool operator <=(Currency a, decimal b)
+        {
+            return LessThanOrEqualOperator(a.Value, b);
         }
 
         public static Currency operator + (Currency a, Currency b)
@@ -244,7 +296,7 @@ namespace EasyPrototyping.Entity
 
         public override string ToString()
         {
-            return this.Value.ToString("C2");
+            return $"{this.Value.ToString($"F{this.DecimalPlace}")} {this.CurrencySymbol}";
         }
 
         public string ToString(string format)

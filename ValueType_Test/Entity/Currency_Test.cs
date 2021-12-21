@@ -51,6 +51,13 @@ namespace ValueType_Test
         [TestMethod]
         public void CreateCurrencyC()
         {
+            Currency currencyEUR = new Currency(100.55M,"ß");
+            Assert.IsTrue(currencyEUR.ToString() == "100,55 ß");
+        }
+
+        [TestMethod]
+        public void CreateCurrencyD()
+        {
             Currency currencyEUR = new Currency(100.55M);
             Assert.IsTrue(currencyEUR.ToString() == "100,55 €");
             Assert.IsTrue(currencyEUR.Units == 100);
@@ -84,6 +91,9 @@ namespace ValueType_Test
         [TestMethod]
         public void CreateObjectWithNotEquals()
         {
+            Currency currencyA = new Currency(101.25M);
+            Currency currencyB = new Currency(100.25M);
+            Assert.IsFalse(currencyA.Equals(currencyB));
         }
 
         [TestMethod]
@@ -104,8 +114,19 @@ namespace ValueType_Test
         }
 
         [TestMethod]
-        public void CurrencyAddC()
+        public void FullHundredRoundDown()
         {
+            Currency currency = new Currency(125.55M);
+            Currency fullCurrency = currency.FullHundredRoundDown();
+            Assert.IsTrue(fullCurrency.ToDecimal() == 100);
+        }
+
+        [TestMethod]
+        public void FullHundredRoundUp()
+        {
+            Currency currency = new Currency(155.55M);
+            Currency fullCurrency = currency.FullHundredRoundUp();
+            Assert.IsTrue(fullCurrency.ToDecimal() == 200);
         }
 
         [DataRow("", "")]
