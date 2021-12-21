@@ -129,6 +129,22 @@ namespace ValueType_Test
             Assert.IsTrue(fullCurrency.ToDecimal() == 200);
         }
 
+        [TestMethod]
+        public void ToBrutto()
+        {
+            Currency currency = new Currency(100);
+            Currency result = currency.ToBrutto(19);
+            Assert.IsTrue(result.Value == 119);
+        }
+
+        [TestMethod]
+        public void ToNetto()
+        {
+            Currency currency = new Currency(119);
+            Currency result = currency.ToNetto(19);
+            Assert.IsTrue(result.Value == 100);
+        }
+
         [DataRow("", "")]
         [TestMethod]
         public void Methode_B(string input, string expected)

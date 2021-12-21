@@ -166,6 +166,28 @@ namespace EasyPrototyping.Entity
             }
         }
 
+        public Currency ToBrutto(double tax)
+        {
+            decimal result = 0;
+
+            decimal taxValue = this.Value * (decimal)tax / 100;
+
+            result = this.Value + taxValue;
+
+            return new Currency(result);
+        }
+
+        public Currency ToNetto(double tax)
+        {
+            decimal result = 0;
+
+            decimal taxValue = this.Value / (1 + (decimal)tax / 100) * (decimal)tax / 100;
+
+            result = this.Value - taxValue;
+
+            return new Currency(result);
+        }
+
         #region Implementation of overload operators
         public static bool operator ==(Currency a, Currency b)
         {
