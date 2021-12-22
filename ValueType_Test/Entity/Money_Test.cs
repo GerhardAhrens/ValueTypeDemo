@@ -23,42 +23,42 @@ namespace ValueType_Test
     using System.Globalization;
 
     [TestClass]
-    public class Currency_Test : BaseTest
+    public class Money_Test : BaseTest
     {
         [TestInitialize]
         public void Initialize()
         {
         }
 
-        public Currency_Test()
+        public Money_Test()
         {
         }
 
         [TestMethod]
         public void CreateCurrencyA()
         {
-            Currency currencyEUR = new Currency(100);
+            Money currencyEUR = new Money(100);
             Assert.IsTrue(currencyEUR.ToString() == "100,00 €");
         }
 
         [TestMethod]
         public void CreateCurrencyB()
         {
-            Currency currencyEUR = new Currency(100.55M);
+            Money currencyEUR = new Money(100.55M);
             Assert.IsTrue(currencyEUR.ToString() == "100,55 €");
         }
 
         [TestMethod]
         public void CreateCurrencyC()
         {
-            Currency currencyEUR = new Currency(100.55M,"ß");
+            Money currencyEUR = new Money(100.55M,"ß");
             Assert.IsTrue(currencyEUR.ToString() == "100,55 ß");
         }
 
         [TestMethod]
         public void CreateCurrencyD()
         {
-            Currency currencyEUR = new Currency(100.55M);
+            Money currencyEUR = new Money(100.55M);
             Assert.IsTrue(currencyEUR.ToString() == "100,55 €");
             Assert.IsTrue(currencyEUR.Units == 100);
             Assert.IsTrue(currencyEUR.DecimalFraction == 55);
@@ -68,81 +68,89 @@ namespace ValueType_Test
         public void CreateBirthdayWithCultureInfo()
         {
             CultureInfo ci = CultureInfo.CurrentCulture;
-            Currency currencyEUR = new Currency(100.99M, ci);
+            Money currencyEUR = new Money(100.99M, ci);
             Assert.IsTrue(currencyEUR.ToString() == "100,99 €");
         }
 
         [TestMethod]
         public void CreateObjectWithEqualsOperator()
         {
-            Currency currencyA = new Currency(100.25M);
-            Currency currencyB = new Currency(100.25M);
+            Money currencyA = new Money(100.25M);
+            Money currencyB = new Money(100.25M);
             Assert.IsTrue(currencyA == currencyB);
         }
 
         [TestMethod]
         public void CreateObjectWithEquals()
         {
-            Currency currencyA = new Currency(100.25M);
-            Currency currencyB = new Currency(100.25M);
+            Money currencyA = new Money(100.25M);
+            Money currencyB = new Money(100.25M);
             Assert.IsTrue(currencyA.Equals(currencyB));
         }
 
         [TestMethod]
         public void CreateObjectWithNotEquals()
         {
-            Currency currencyA = new Currency(101.25M);
-            Currency currencyB = new Currency(100.25M);
+            Money currencyA = new Money(101.25M);
+            Money currencyB = new Money(100.25M);
             Assert.IsFalse(currencyA.Equals(currencyB));
         }
 
         [TestMethod]
         public void CurrencyAddA()
         {
-            Currency currencyA = new Currency(100.25M);
-            Currency currencyB = new Currency(100.25M);
-            Currency currencySum = currencyA + currencyB;
+            Money currencyA = new Money(100.25M);
+            Money currencyB = new Money(100.25M);
+            Money currencySum = currencyA + currencyB;
             Assert.IsTrue(currencySum.ToDecimal() == 200.50M);
         }
 
         [TestMethod]
         public void CurrencyAddB()
         {
-            Currency currency = new Currency(100.25M);
-            Currency currencySum = currency + 100.25M;
+            Money currency = new Money(100.25M);
+            Money currencySum = currency + 100.25M;
             Assert.IsTrue(currencySum.ToDecimal() == 200.50M);
         }
 
         [TestMethod]
         public void FullHundredRoundDown()
         {
-            Currency currency = new Currency(125.55M);
-            Currency fullCurrency = currency.FullHundredRoundDown();
+            Money currency = new Money(125.55M);
+            Money fullCurrency = currency.FullHundredRoundDown();
             Assert.IsTrue(fullCurrency.ToDecimal() == 100);
         }
 
         [TestMethod]
         public void FullHundredRoundUp()
         {
-            Currency currency = new Currency(155.55M);
-            Currency fullCurrency = currency.FullHundredRoundUp();
+            Money currency = new Money(155.55M);
+            Money fullCurrency = currency.FullHundredRoundUp();
             Assert.IsTrue(fullCurrency.ToDecimal() == 200);
         }
 
         [TestMethod]
         public void ToBrutto()
         {
-            Currency currency = new Currency(100);
-            Currency result = currency.ToBrutto(19);
+            Money currency = new Money(100);
+            Money result = currency.ToBrutto(19);
             Assert.IsTrue(result.Value == 119);
         }
 
         [TestMethod]
         public void ToNetto()
         {
-            Currency currency = new Currency(119);
-            Currency result = currency.ToNetto(19);
+            Money currency = new Money(119);
+            Money result = currency.ToNetto(19);
             Assert.IsTrue(result.Value == 100);
+        }
+
+        [TestMethod]
+        public void MehrwertSteuerBetrag()
+        {
+            Money currency = new Money(119);
+            decimal result = currency.MehrwertSteuerBetrag(19);
+            Assert.IsTrue(result == 19);
         }
 
         [DataRow("", "")]
@@ -169,8 +177,8 @@ namespace ValueType_Test
         {
             try
             {
-                Currency currency = new Currency(100.25M);
-                Currency currencySum = currency / 0;
+                Money currency = new Money(100.25M);
+                Money currencySum = currency / 0;
             }
             catch (Exception ex)
             {

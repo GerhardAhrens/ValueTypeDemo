@@ -21,11 +21,11 @@ namespace EasyPrototyping.Entity
 
     using ValueTypeDemo.Core;
 
-    public class Currency : ValueObjectBase
+    public class Money : ValueObjectBase
     {
         private const decimal FractionScale = 1E9M;
 
-        public Currency(decimal value)
+        public Money(decimal value)
         {
             this.CultureInfo = CultureInfo.CurrentCulture;
             this.Value = value;
@@ -34,7 +34,7 @@ namespace EasyPrototyping.Entity
             this.CalcDecimalFraction();
         }
 
-        public Currency(decimal value, int decimalPlace)
+        public Money(decimal value, int decimalPlace)
         {
             this.CultureInfo = CultureInfo.CurrentCulture;
             this.Value = value;
@@ -43,7 +43,7 @@ namespace EasyPrototyping.Entity
             this.CalcDecimalFraction();
         }
 
-        public Currency(decimal value, CultureInfo cultureInfo)
+        public Money(decimal value, CultureInfo cultureInfo)
         {
             this.CultureInfo = cultureInfo;
             this.Value = value;
@@ -52,7 +52,7 @@ namespace EasyPrototyping.Entity
             this.CalcDecimalFraction();
         }
 
-        public Currency(decimal value, string currencySymbol)
+        public Money(decimal value, string currencySymbol)
         {
             this.Value = value;
             this.CurrencySymbol = currencySymbol;
@@ -60,7 +60,7 @@ namespace EasyPrototyping.Entity
             this.CalcDecimalFraction();
         }
 
-        public Currency(decimal value, int decimalPlace, string currencySymbol)
+        public Money(decimal value, int decimalPlace, string currencySymbol)
         {
             this.Value = value;
             this.CurrencySymbol = currencySymbol;
@@ -136,37 +136,37 @@ namespace EasyPrototyping.Entity
             return Convert.ToDecimal(this.Value);
         }
 
-        public Currency FullHundredRoundDown()
+        public Money FullHundredRoundDown()
         {
             int result = Convert.ToInt32(Math.Floor(this.Value));
 
             int rest = result % 100;
             if (rest < 99)
             {
-                return new Currency(result - rest);
+                return new Money(result - rest);
             }
             else
             {
-                return new Currency(result + (100 - rest));
+                return new Money(result + (100 - rest));
             }
         }
 
-        public Currency FullHundredRoundUp()
+        public Money FullHundredRoundUp()
         {
             int result = Convert.ToInt32(Math.Floor(this.Value));
 
             int rest = result % 100;
             if (rest < 50)
             {
-                return new Currency(result - rest);
+                return new Money(result - rest);
             }
             else
             {
-                return new Currency(result + (100 - rest));
+                return new Money(result + (100 - rest));
             }
         }
 
-        public Currency ToBrutto(double tax)
+        public Money ToBrutto(double tax)
         {
             decimal result = 0;
 
@@ -174,10 +174,10 @@ namespace EasyPrototyping.Entity
 
             result = this.Value + taxValue;
 
-            return new Currency(result);
+            return new Money(result);
         }
 
-        public Currency ToNetto(double tax)
+        public Money ToNetto(double tax)
         {
             decimal result = 0;
 
@@ -185,95 +185,107 @@ namespace EasyPrototyping.Entity
 
             result = this.Value - taxValue;
 
-            return new Currency(result);
+            return new Money(result);
+        }
+
+        public decimal MehrwertSteuerBetrag(double tax)
+        {
+            if (this.Value > 0 && tax > 0)
+            {
+                return this.Value / (1 + (decimal)tax / 100) * (decimal)tax / 100;
+            }
+            else
+            {
+                return 0.00M;
+            }
         }
 
         #region Implementation of overload operators
-        public static bool operator ==(Currency a, Currency b)
+        public static bool operator ==(Money a, Money b)
         {
             return EqualOperator(a.Value, b.Value);
         }
 
-        public static bool operator ==(Currency a, decimal b)
+        public static bool operator ==(Money a, decimal b)
         {
             return EqualOperator(a.Value, b);
         }
 
-        public static bool operator !=(Currency a, Currency b)
+        public static bool operator !=(Money a, Money b)
         {
             return NotEqualOperator(a.Value, b.Value);
         }
 
-        public static bool operator !=(Currency a, decimal b)
+        public static bool operator !=(Money a, decimal b)
         {
             return NotEqualOperator(a.Value, b);
         }
 
-        public static bool operator > (Currency a, Currency b)
+        public static bool operator > (Money a, Money b)
         {
             return GreaterThanOperator(a.Value, b.Value);
         }
 
-        public static bool operator >(Currency a, decimal b)
+        public static bool operator >(Money a, decimal b)
         {
             return GreaterThanOperator(a.Value, b);
         }
 
-        public static bool operator >= (Currency a, Currency b)
+        public static bool operator >= (Money a, Money b)
         {
             return GreaterThanOrEqualOperator(a.Value, b.Value);
         }
 
-        public static bool operator >=(Currency a, decimal b)
+        public static bool operator >=(Money a, decimal b)
         {
             return GreaterThanOrEqualOperator(a.Value, b);
         }
 
-        public static bool operator < (Currency a, Currency b)
+        public static bool operator < (Money a, Money b)
         {
             return LessThanOperator(a.Value, b.Value);
         }
 
-        public static bool operator <(Currency a, decimal b)
+        public static bool operator <(Money a, decimal b)
         {
             return LessThanOperator(a.Value, b);
         }
 
-        public static bool operator <=(Currency a, Currency b)
+        public static bool operator <=(Money a, Money b)
         {
             return LessThanOrEqualOperator(a.Value, b.Value);
         }
 
-        public static bool operator <=(Currency a, decimal b)
+        public static bool operator <=(Money a, decimal b)
         {
             return LessThanOrEqualOperator(a.Value, b);
         }
 
-        public static Currency operator + (Currency a, Currency b)
+        public static Money operator + (Money a, Money b)
         {
-            return new Currency(a.Value + b.Value);
+            return new Money(a.Value + b.Value);
         }
 
-        public static Currency operator +(Currency a, decimal b)
+        public static Money operator +(Money a, decimal b)
         {
-            return new Currency(a.Value + b);
+            return new Money(a.Value + b);
         }
 
-        public static Currency operator - (Currency a, Currency b)
+        public static Money operator - (Money a, Money b)
         {
-            return new Currency(a.Value - b.Value);
+            return new Money(a.Value - b.Value);
         }
 
-        public static Currency operator - (Currency a, decimal b)
+        public static Money operator - (Money a, decimal b)
         {
-            return new Currency(a.Value - b);
+            return new Money(a.Value - b);
         }
 
-        public static Currency operator /(Currency a, Currency b)
+        public static Money operator /(Money a, Money b)
         {
             if (b.Value > 0)
             {
-                return new Currency(a.Value / b.Value);
+                return new Money(a.Value / b.Value);
             }
             else
             {
@@ -281,11 +293,11 @@ namespace EasyPrototyping.Entity
             }
         }
 
-        public static Currency operator /(Currency a, decimal b)
+        public static Money operator /(Money a, decimal b)
         {
             if (b > 0)
             {
-                return new Currency(a.Value / b);
+                return new Money(a.Value / b);
             }
             else
             {
@@ -293,14 +305,14 @@ namespace EasyPrototyping.Entity
             }
         }
 
-        public static Currency operator *(Currency a, Currency b)
+        public static Money operator *(Money a, Money b)
         {
-            return new Currency(a.Value * b.Value);
+            return new Money(a.Value * b.Value);
         }
 
-        public static Currency operator *(Currency a, decimal b)
+        public static Money operator *(Money a, decimal b)
         {
-            return new Currency(a.Value * b);
+            return new Money(a.Value * b);
         }
 
         #endregion Implementation of overload operators
