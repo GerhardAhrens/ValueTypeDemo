@@ -23,7 +23,7 @@ namespace EasyPrototyping.Entity
     using ValueTypeDemo.Core;
 
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
-    public class Firstname : ValueObjectBase, IValueObject<string>
+    public class Firstname : ValueObjectBase, IValueObject<string, Firstname>
     {
         public Firstname(string value = "", bool firstCharUpper = true)
         {

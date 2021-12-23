@@ -6,8 +6,14 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IValueObject<TTyp>
+    public interface IValueObject<TTyp,TEntity>
     {
         TTyp Value { get; }
+
+        bool Equals(object @this);
+
+        int GetHashCode();
+
+        string ToString();
     }
 }
