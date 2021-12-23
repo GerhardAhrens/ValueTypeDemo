@@ -45,11 +45,34 @@ Bei den Nachteilen wäre zu nennen den Aufwand zur Erstellung von Value Objects 
 Weiter gibt es sicher auch Situationen, das eine Value Objects nach dem Erstellen geändert werden muß. Hier müssen dann nachträglich sepzielle Methoden erstellt werden.
 Value Objects müssen vor der Verwendung instanziert werden, das immer eine gewisse Zeit und damit auch Performance kostet. Hier sind die Vor- und Nachteile abzuwägen.
 
-## Beispiel für eine EMail Adresse
+## Opertoren Überladung (overload operators)
+Wir wollen die VO wie Typen verwenden. Daher wollen wir auch die Operatoren wie '==', '!=' usw verwenden. Die Basisklasse 'ValueObjectBase' stellt die Anweisungen für Vergleiche als Methoden zur Verfügung.
+In unserem VO müssen dann die gewünschten Operatoren entsprechend überladen werden.
+```
+public static bool operator == (Email a, Email b)
+{
+     return EqualOperator(a.Value, b.Value);
+}
+```
+Wichtig hier, das wir nicht zwei Objekte vergleichen wollen, sondern einen bestimmten Wert in diesem Objekt. In diesem Fall das Property 'Value'.
 
-In diesem einfachen Beispiel gibt es ein VO Email das intern auch prüft, ob die angegebene EMail-Adresse auch formal valide ist.
+## Beispiel für ein VO EMail Adresse
+
+In diesem einfachen Beispiel gibt es ein VO Email das intern auch prüft, ob die angegebene EMail-Adresse auch formal valide ist. Properties können nur gelesen werden.
 ```
 Email email = new Email("developer@lifeprojects.de");
 bool emailValid = email.IsConfirmed;
 string emalAddress = email.Value;
+
+// Vergleichen zweier Emal-Adressen
+Email emailA = new Email("developer@lifeprojects.de");
+Email emailB = new Email("developer@lifeprojects.de");
+if (emailA == emailB)
+{
+    // beide Adressen sind gleich
+}
 ```
+
+## Beispiel für ein VO Birthday
+C# hat einen allgemeinen DateTime Typ, so ist es auch möglich mit einem VO eine speziellen Birthday Typ zu erstellen. Dieser Typ hat dann Merkmale die nur im zusammenhang 
+mit einem Geburtstagsdatum benötig werden, wie z.B. das Alter in Jahren, Tagen usw.
