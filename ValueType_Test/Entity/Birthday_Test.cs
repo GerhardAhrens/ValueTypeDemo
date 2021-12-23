@@ -40,6 +40,7 @@ namespace ValueType_Test
             Birthday b = new Birthday(dt);
             Assert.IsTrue(b.GetType() == typeof(Birthday));
             Assert.IsTrue(b.ToDateTime() == new DateTime(1960, 6, 28));
+            Assert.IsTrue(b.Value == new DateTime(1960, 6, 28));
         }
 
         [TestMethod]
@@ -109,6 +110,22 @@ namespace ValueType_Test
             DateTime dtA = new DateTime(1960, 1, 1);
             DateTime dtB = new DateTime(1960, 5, 30);
             Assert.IsTrue(birthday.NotBetween(dtA, dtB));
+        }
+
+        [TestMethod]
+        public void Clone()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            Birthday birthdayClone = birthday.CloneTo<Birthday>();
+            Assert.IsTrue(birthday == birthdayClone);
+        }
+
+        [TestMethod]
+        public void AgeInYear()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            Assert.IsTrue(birthday.AgeInYear() == 61);
+            Assert.IsTrue(birthday.AgeInDays() == 22458);
         }
 
         [DataRow("", "")]

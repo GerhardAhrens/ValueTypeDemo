@@ -64,15 +64,27 @@ Email email = new Email("developer@lifeprojects.de");
 bool emailValid = email.IsConfirmed;
 string emalAddress = email.Value;
 
-// Vergleichen zweier Emal-Adressen
+// Vergleichen zweier Email-Adressen
 Email emailA = new Email("developer@lifeprojects.de");
 Email emailB = new Email("developer@lifeprojects.de");
 if (emailA == emailB)
 {
-    // beide Adressen sind gleich
+    // beide Email-Adressen sind gleich
 }
 ```
 
 ## Beispiel für ein VO Birthday
 C# hat einen allgemeinen DateTime Typ, so ist es auch möglich mit einem VO eine speziellen Birthday Typ zu erstellen. Dieser Typ hat dann Merkmale die nur im Zusammenhang 
 mit einem Geburtstagsdatum benötig werden, wie z.B. das Alter in Jahren, Tagen usw.
+```
+DateTime dt = new DateTime(1960, 6, 28);
+Birthday b = new Birthday(dt);
+Assert.IsTrue(b.GetType() == typeof(Birthday));
+Assert.IsTrue(b.ToDateTime() == new DateTime(1960, 6, 28));
+Assert.IsTrue(b.Value == new DateTime(1960, 6, 28));
+Assert.IsTrue(birthday.AgeInYear() == 61);
+Assert.IsTrue(birthday.AgeInDays() == 22458);
+```
+
+## Erstellen eines Value Objects
+

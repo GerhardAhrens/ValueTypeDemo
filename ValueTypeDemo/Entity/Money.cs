@@ -9,7 +9,7 @@
 // <date>25.11.2021</date>
 //
 // <summary>
-// Klasse für Entity ValueType Currency
+// Klasse für Entity ValueType Money
 // </summary>
 //-----------------------------------------------------------------------
 

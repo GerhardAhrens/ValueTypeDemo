@@ -23,7 +23,7 @@ namespace EasyPrototyping.Entity
     using ValueTypeDemo.Core;
 
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
-    public class Firstname : ValueObjectBase
+    public class Firstname : ValueObjectBase, IValueObject<string>
     {
         public Firstname(string value = "", bool firstCharUpper = true)
         {
@@ -62,12 +62,12 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Firstname a, Firstname b)
         {
-            return EqualOperator(a, b);
+            return EqualOperator(a.Value, b.Value);
         }
 
         public static bool operator !=(Firstname a, Firstname b)
         {
-            return NotEqualOperator(a, b);
+            return NotEqualOperator(a.Value, b.Value);
         }
         #endregion Implementation of overload operators
 
