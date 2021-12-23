@@ -48,38 +48,67 @@ namespace EasyPrototyping.Entity
             }
         }
 
+        /// <summary>
+        /// Gibt das vollständige Datum als DateTime zurück
+        /// </summary>
         public DateTime Value { get; }
 
+        /// <summary>
+        /// Gibt den Tag zurück
+        /// </summary>
         public int Day
         {
             get { return this.Value.Day; }
         }
 
+        /// <summary>
+        /// Gibt den Monat zurück
+        /// </summary>
         public int Month
         {
             get { return this.Value.Month; }
         }
 
+        /// <summary>
+        /// Gibt das Jahr zurück
+        /// </summary>
         public int Year
         {
             get { return this.Value.Year; }
         }
 
+        /// <summary>
+        /// Gibt das Datum als String zurück, unter berücksichtigung der Format-Angabe
+        /// </summary>
+        /// <param name="format">Format-Angabe</param>
+        /// <returns></returns>
         public string ToString(string format)
         {
             return this.Value.ToString(format);
         }
 
+        /// <summary>
+        /// Gibt das vollständige Datum als DateTime zurück
+        /// </summary>
+        /// <returns></returns>
         public DateTime ToDateTime()
         {
             return this.Value;
         }
 
+        /// <summary>
+        /// Gibt das Alter in Jahren zurück
+        /// </summary>
+        /// <returns></returns>
         public int AgeInYear()
         {
             return this.Value.GetAge();
         }
 
+        /// <summary>
+        /// Gibt das Alter in Tagen zurück
+        /// </summary>
+        /// <returns></returns>
         public int AgeInDays()
         {
             DateTime d1 = DateTime.Now;
@@ -88,6 +117,34 @@ namespace EasyPrototyping.Entity
             TimeSpan t = d1 - d2;
             double days = t.TotalDays;
             return (int)days;
+        }
+
+        /// <summary>
+        /// Prüft, ob das angegebene Datum in einerm Bereich zwischen 'dateIn' und 'dateOut' liegt.
+        /// </summary>
+        /// <param name="dateIn">Vergleichsdatum A</param>
+        /// <param name="dateOut">Vergleichsdatum B</param>
+        /// <returns>True wenn das Datum innherhalb des Vergelchsdatum A und B liegt, sonst False</returns>
+        public bool Between(DateTime dateIn, DateTime dateOut)
+        {
+            bool result = false;
+            if ((this.Value.Ticks > dateIn.Ticks && this.Value.Ticks < dateOut.Ticks))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Prüft, ob das angegebene Datum in einerm Bereich zwischen 'dateIn' und 'dateOut' liegt.
+        /// </summary>
+        /// <param name="dateIn">Vergleichsdatum A</param>
+        /// <param name="dateOut">Vergleichsdatum B</param>
+        /// <returns>True wenn das Datum innherhalb des Vergelchsdatum A und B liegt, sonst False</returns>
+        public bool NotBetween(DateTime dateIn, DateTime dateOut)
+        {
+            return this.Between(dateIn, dateOut) == false;
         }
 
         #region Implementation of override methodes
@@ -119,32 +176,32 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Birthday a, Birthday b)
         {
-            return EqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+            return EqualOperator<DateTime>(a.Value, b.Value);
         }
 
         public static bool operator !=(Birthday a, Birthday b)
         {
-            return NotEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+            return NotEqualOperator<DateTime>(a.Value, b.Value);
         }
 
         public static bool operator > (Birthday a, Birthday b)
         {
-            return GreaterThanOperator(a, b);
+            return GreaterThanOperator(a.Value, b.Value);
         }
 
         public static bool operator >=(Birthday a, Birthday b)
         {
-            return GreaterThanOrEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+            return GreaterThanOrEqualOperator<DateTime>(a.Value, b.Value);
         }
 
         public static bool operator < (Birthday a, Birthday b)
         {
-            return LessThanOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+            return LessThanOperator<DateTime>(a.Value, b.Value);
         }
 
         public static bool operator <=(Birthday a, Birthday b)
         {
-            return LessThanOrEqualOperator<DateTime>(a.ToDateTime(), b.ToDateTime());
+            return LessThanOrEqualOperator<DateTime>(a.Value, b.Value);
         }
         #endregion Implementation of overload operators
 

@@ -54,7 +54,7 @@ public static bool operator == (Email a, Email b)
      return EqualOperator(a.Value, b.Value);
 }
 ```
-Wichtig hier, das wir nicht zwei Objekte vergleichen wollen, sondern einen bestimmten Wert in diesem Objekt. In diesem Fall das Property 'Value'.
+Wichtig hier ist, das wir nicht zwei Objekte vergleichen wollen, sondern einen bestimmten Wert in diesem Objekt. In diesem Fall das Property 'Value'.
 
 ## Beispiel für ein VO EMail Adresse
 
@@ -74,5 +74,5 @@ if (emailA == emailB)
 ```
 
 ## Beispiel für ein VO Birthday
-C# hat einen allgemeinen DateTime Typ, so ist es auch möglich mit einem VO eine speziellen Birthday Typ zu erstellen. Dieser Typ hat dann Merkmale die nur im zusammenhang 
+C# hat einen allgemeinen DateTime Typ, so ist es auch möglich mit einem VO eine speziellen Birthday Typ zu erstellen. Dieser Typ hat dann Merkmale die nur im Zusammenhang 
 mit einem Geburtstagsdatum benötig werden, wie z.B. das Alter in Jahren, Tagen usw.

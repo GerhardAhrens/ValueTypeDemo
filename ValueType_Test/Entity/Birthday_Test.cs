@@ -66,6 +66,51 @@ namespace ValueType_Test
             Assert.IsTrue(birthdayA != birthdayB);
         }
 
+        [TestMethod]
+        public void GreaterThan()
+        {
+            Birthday birthdayA = new Birthday(1960, 6, 28);
+            Birthday birthdayB = new Birthday(2021, 12, 17);
+            Assert.IsTrue(birthdayB > birthdayA);
+            Assert.IsFalse(birthdayA > birthdayB);
+        }
+
+        [TestMethod]
+        public void LessThan()
+        {
+            Birthday birthdayA = new Birthday(1960, 6, 28);
+            Birthday birthdayB = new Birthday(2021, 12, 17);
+            Assert.IsTrue(birthdayA < birthdayB);
+            Assert.IsFalse(birthdayB < birthdayA);
+        }
+
+        [TestMethod]
+        public void BetweenTwoDatesIN()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            DateTime dtA = new DateTime(1960, 1, 1);
+            DateTime dtB = new DateTime(1960, 12, 31);
+            Assert.IsTrue(birthday.Between(dtA, dtB));
+        }
+
+        [TestMethod]
+        public void BetweenTwoDatesOUT()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            DateTime dtA = new DateTime(1960, 1, 1);
+            DateTime dtB = new DateTime(1960, 5, 30);
+            Assert.IsFalse(birthday.Between(dtA, dtB));
+        }
+
+        [TestMethod]
+        public void NotBetweenTwoDates()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            DateTime dtA = new DateTime(1960, 1, 1);
+            DateTime dtB = new DateTime(1960, 5, 30);
+            Assert.IsTrue(birthday.NotBetween(dtA, dtB));
+        }
+
         [DataRow("", "")]
         [TestMethod]
         public void Methode_B(string input, string expected)
