@@ -39,8 +39,14 @@ namespace EasyPrototyping.Entity
             }
         }
 
+        /// <summary>
+        /// Gibt die EMail Adresse zurück
+        /// </summary>
         public string Value { get; }
 
+        /// <summary>
+        /// Gibt an, ob die EMail-Adresse formal valide ist zurück (True=Ok. False=Fehler)
+        /// </summary>
         public bool IsConfirmed { get; }
 
         #region Implementation of override methodes

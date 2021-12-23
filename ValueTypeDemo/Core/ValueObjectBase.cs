@@ -1,4 +1,19 @@
-﻿namespace ValueTypeDemo.Core
+﻿//-----------------------------------------------------------------------
+// <copyright file="ValueObjectBase.cs" company="Lifeprojects.de">
+//     Class: ValueObjectBase
+//     Copyright © Lifeprojects.de 2021
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>gerhard.ahrens@lifeprojects.de</email>
+// <date>22.12.2021</date>
+//
+// <summary>
+// Klasse für Abstract ValueObjectBase Class
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace ValueTypeDemo.Core
 {
     using System;
     using System.Collections.Generic;

@@ -2,7 +2,7 @@
 ## This Demo is written in C# for NET5
 
 # Was sind Value Objects?
-Value Objects sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiger Aspekt, ist wenn die Benutzung von Typen 
+Value Objects (VO) sind dann besonders wichtig, wenn diese im Bezug des Domain Driven Design (DDD) verwendet werden. Ein weiterer wichtiger Aspekt, ist wenn die Benutzung von Typen 
 einen konkreten Bezug zu einer Fachlichkeit haben soll. Strukturen, die für sich genommen keinen Sinn ergeben, aber Informationen enthalten, werden als Wertobjekte bezeichnet. 
 Wir können die Datumsstruktur als Beispiel betrachten. Die Kombination von 3 Zahlen, Tag, Monat und Jahr, erzeugt Informationen, die auf ein bestimmtes Datum hinweisen. Es ist jedoch unklar, was dieses Datum bedeutet. Dieses Problem wird verständlicher, wenn wir über zwei Hauptmerkmale von Wertobjekten sprechen.
 
@@ -36,10 +36,20 @@ Betrachtet man die obigen Beipiele, so ist das zweite Beispiel der Person-Klasse
 Während der parallelen Codeausführung kann es vorkommen, dass verschiedene Threads die Werte, die Objekte tragen, ändern wollen. In diesem Fall tritt eine "Race Condition" auf. Aufgrund der "Race Condition" kann das Programm bei jeder Ausführung unterschiedliche Ergebnisse liefern. Da Wertobjekte unveränderlich sind, können sie keine "Race Condition" auslösen.
 
 ## Vor- und Nachteile von Value Objects
-Bei der Verwendung von Value Objects sehe ich folgende wichtige Vorteile
+Bei der Verwendung von Value Objects (VO) sehe ich folgende wichtige Vorteile
 - Konkrete Beschreibung eines Wertes
 - Erweiterungen, die nur auf diesem Typ wirken (z.B. durch Extensions)
 - Value Objects können nach dem Erstellen nicht mehr geändert werden (Immutable)
 
-Bei den Nachteilen wäre zu nennen den Aufwand zur Erstellung von Value Objects den den damit verbundenen Test, dieser sehr ausführlich sein sollte da die Value Objects in der gesammten Applikation verwendet werden.
+Bei den Nachteilen wäre zu nennen den Aufwand zur Erstellung von Value Objects (hier kann zumindest über T4-Templates die Erstellung vereinfacht werden) den den damit verbundenen Test, dieser sehr ausführlich sein sollte da die Value Objects in der gesammten Applikation verwendet werden.
 Weiter gibt es sicher auch Situationen, das eine Value Objects nach dem Erstellen geändert werden muß. Hier müssen dann nachträglich sepzielle Methoden erstellt werden.
+Value Objects müssen vor der Verwendung instanziert werden, das immer eine gewisse Zeit und damit auch Performance kostet. Hier sind die Vor- und Nachteile abzuwägen.
+
+## Beispiel für eine EMail Adresse
+
+In diesem einfachen Beispiel gibt es ein VO Email das intern auch prüft, ob die angegebene EMail-Adresse auch formal valide ist.
+```
+Email email = new Email("developer@lifeprojects.de");
+bool emailValid = email.IsConfirmed;
+string emalAddress = email.Value;
+```

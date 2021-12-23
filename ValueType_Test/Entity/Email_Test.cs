@@ -65,6 +65,7 @@ namespace ValueType_Test
         {
             Email email = new Email("gerhard.ahrens@lifeprojects.de");
             Assert.IsNotNull(email);
+            Assert.IsTrue(email.Value == "gerhard.ahrens@lifeprojects.de");
             Assert.IsTrue(email.IsConfirmed);
         }
 
