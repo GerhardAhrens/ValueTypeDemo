@@ -27,14 +27,23 @@ namespace EasyPrototyping.Entity
     {
         public Firstname(string value = "", bool firstCharUpper = true)
         {
-            if (firstCharUpper == true)
+            if (string.IsNullOrEmpty(value) == false)
             {
+                if (firstCharUpper == true)
+                {
+                    this.Value = string.Concat(value[0].ToString().ToUpper(), value.AsSpan(1));
+                }
+                else
+                {
+                    this.Value = value;
+                }
+
                 this.PhoneticCode = value.SoundEx();
-                this.Value = string.Concat(value[0].ToString().ToUpper(), value.AsSpan(1));
             }
             else
             {
                 this.Value = value;
+                this.PhoneticCode =string.Empty;
             }
         }
 

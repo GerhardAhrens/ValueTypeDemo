@@ -87,4 +87,39 @@ Assert.IsTrue(birthday.AgeInDays() == 22458);
 ```
 
 ## Erstellen eines Value Objects
+Als Beispiel wird eine einfaches VO für einen 'Vornamen' ertellt.
+
+### Klasse für Value Objects
+Ein Value Objects wird aus der Basisklasse ''ValueObjectBase' und dem Interface 'IValueObject<TTyp, TEntity>' erstellt. In der Basisklassen sind eine Reihe von Methoden
+implementiert, die auf das zu erstellende VO vererbt werden.
+
+```
+public class Firstname : ValueObjectBase, IValueObject<string, Firstname>
+```
+
+### Contructor und Properties
+Dem VO wird nur über den Contruktor Werte zugewiesen, die Properties können nur Werte zurückgeben. Damit bekommt das VO seinen Immutable Charakter.
+```
+public Firstname(string value = "", bool firstCharUpper = true)
+{
+    if (firstCharUpper == true)
+    {
+       this.Value = string.Concat(value[0].ToString().ToUpper(), value.AsSpan(1));
+    }
+    else
+    {
+       this.Value = value;
+    }
+
+    this.PhoneticCode = value.SoundEx();
+}
+
+    public string Value { get; }
+
+    public string PhoneticCode { get; }
+
+```
+### Implementation of override methodes
+
+### Implementation of overload operators
 

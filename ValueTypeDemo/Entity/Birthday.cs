@@ -21,7 +21,7 @@ namespace EasyPrototyping.Entity
 
     using ValueTypeDemo.Core;
 
-    public class Birthday : ValueObjectBase, IFormattable
+    public class Birthday : ValueObjectBase, IValueObject<DateTime, Birthday>, IFormattable
     {
         public Birthday(DateTime value)
         {

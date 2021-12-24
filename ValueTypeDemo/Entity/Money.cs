@@ -21,7 +21,7 @@ namespace EasyPrototyping.Entity
 
     using ValueTypeDemo.Core;
 
-    public class Money : ValueObjectBase
+    public class Money : ValueObjectBase , IValueObject<decimal, Money>
     {
         private const decimal FractionScale = 1E9M;
 
