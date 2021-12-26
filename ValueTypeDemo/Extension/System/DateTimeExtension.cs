@@ -40,5 +40,21 @@ namespace System
 
             return today.Year - ((DateTime)@this).Year - (hadBirthday ? 0 : 1);
         }
+
+        public static bool Between(this DateTime @this, DateTime minValue, DateTime maxValue)
+        {
+            bool result = false;
+            if ((@this.Ticks > minValue.Ticks && @this.Ticks < maxValue.Ticks))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public static bool NotBetween(this DateTime @this, DateTime minValue, DateTime maxValue)
+        {
+            return @this.Between(minValue, maxValue) == false;
+        }
     }
 }

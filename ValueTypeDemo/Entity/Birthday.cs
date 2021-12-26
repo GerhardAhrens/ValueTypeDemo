@@ -127,13 +127,7 @@ namespace EasyPrototyping.Entity
         /// <returns>True wenn das Datum innherhalb des Vergelchsdatum A und B liegt, sonst False</returns>
         public bool Between(DateTime dateIn, DateTime dateOut)
         {
-            bool result = false;
-            if ((this.Value.Ticks > dateIn.Ticks && this.Value.Ticks < dateOut.Ticks))
-            {
-                result = true;
-            }
-
-            return result;
+            return this.Value.Between(dateIn, dateOut);
         }
 
         /// <summary>
@@ -144,7 +138,7 @@ namespace EasyPrototyping.Entity
         /// <returns>True wenn das Datum innherhalb des Vergelchsdatum A und B liegt, sonst False</returns>
         public bool NotBetween(DateTime dateIn, DateTime dateOut)
         {
-            return this.Between(dateIn, dateOut) == false;
+            return this.NotBetween(dateIn, dateOut);
         }
 
         #region Implementation of override methodes
