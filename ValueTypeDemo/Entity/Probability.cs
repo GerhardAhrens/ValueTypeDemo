@@ -20,7 +20,7 @@ namespace EasyPrototyping.Entity
 
     using ValueTypeDemo.Core;
 
-    public class Probability : ValueObjectBase
+    public sealed class Probability : ValueObjectBase
     {
         public Probability(decimal value)
         {

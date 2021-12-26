@@ -56,5 +56,30 @@ namespace System
         {
             return @this.Between(minValue, maxValue) == false;
         }
+
+        /// <summary>
+        /// Die Methode prüft, ob das Datum '@this' in der übergeben Liste von Type 'DateTime' enthalten ist
+        /// </summary>
+        /// <param name="this">The object to be compared.</param>
+        /// <param name="values">The value list to compare with the object.</param>
+        /// <returns>true if the values list contains the object, else false.</returns>
+        /// ###
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        public static bool In(this DateTime @this, params DateTime[] values)
+        {
+            return Array.IndexOf(values, @this) != -1;
+        }
+
+        /// <summary>
+        /// Die Methode prüft, ob das Datum '@this' in der übergeben Liste von Type 'DateTime' nicht enthalten ist
+        /// </summary>
+        /// <param name="this">The object to be compared.</param>
+        /// <param name="values">The value list to compare with the object.</param>
+        /// <returns>true if the values list doesn't contains the object, else false.</returns>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        public static bool NotIn(this DateTime @this, params DateTime[] values)
+        {
+            return Array.IndexOf(values, @this) == -1;
+        }
     }
 }

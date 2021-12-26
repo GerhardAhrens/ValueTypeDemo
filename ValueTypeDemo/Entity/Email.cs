@@ -23,7 +23,7 @@ namespace EasyPrototyping.Entity
     using ValueTypeDemo.Core;
 
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
-    public class Email : ValueObjectBase, IValueObject<string, Email>
+    public sealed class Email : ValueObjectBase, IValueObject<string, Email>
     {
         public Email(string value = "")
         {
