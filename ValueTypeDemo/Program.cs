@@ -36,13 +36,6 @@ public class Program
         ConsoleMenuSmall.Run(options, options[0]);
 
         /*
-
-        Firstname firstName = new Firstname("gerhard");
-        if (firstName != null)
-        {
-            MessageBox.Show($"{firstName.Value}\n{firstName.PhoneticCode}");
-        }
-
         Address adr1 = new Address("Deutschland", "68195", "Musterstadt", "Musterstrasse");
         if (adr1 != null)
         {
@@ -55,6 +48,5 @@ public class Program
             }
         }
         */
-
     }
 }

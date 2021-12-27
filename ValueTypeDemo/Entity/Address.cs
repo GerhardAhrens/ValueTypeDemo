@@ -81,12 +81,26 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Address a, Address b)
         {
-            return EqualOperator(a,b);
+            bool result = false;
+
+            if (a?.Country == b?.Country && a?.Zip == b?.Zip && a?.City == b?.City && a?.Street == b?.Street && a?.StreetAdd == b?.StreetAdd)
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         public static bool operator !=(Address a, Address b)
         {
-            return NotEqualOperator(a,b);
+            bool result = false;
+
+            if (a?.Country != b?.Country || a?.Zip != b?.Zip || a?.City != b?.City || a?.Street != b?.Street || a?.StreetAdd != b?.StreetAdd)
+            {
+                result = true;
+            }
+
+            return result;
         }
         #endregion Implementation of overload operators
 
