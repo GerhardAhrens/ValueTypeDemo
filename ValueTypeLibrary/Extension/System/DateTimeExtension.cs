@@ -15,7 +15,7 @@
 
 namespace System
 {
-    internal static class DateTimeExtension
+    public static class DateTimeExtension
     {
         public static int GetAge(this DateTime @this)
         {

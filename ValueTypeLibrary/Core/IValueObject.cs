@@ -1,4 +1,4 @@
-﻿namespace ValueTypeDemo.Core
+﻿namespace ValueTypeLibrary.Core
 {
     using System;
     using System.Collections.Generic;

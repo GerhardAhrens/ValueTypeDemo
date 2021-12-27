@@ -15,12 +15,11 @@
 
 namespace EasyPrototyping.Entity
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Text.RegularExpressions;
 
-    using ValueTypeDemo.Core;
+    using ValueTypeLibrary.Core;
 
     [DebuggerDisplay("Value={Value}; IsConfirmed={IsConfirmed}")]
     public sealed class Email : ValueObjectBase, IValueObject<string, Email>

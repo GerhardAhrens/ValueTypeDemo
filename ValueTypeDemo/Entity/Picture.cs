@@ -15,12 +15,9 @@
 
 namespace EasyPrototyping.Entity
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Text.RegularExpressions;
 
-    using ValueTypeDemo.Core;
+    using ValueTypeLibrary.Core;
 
     public sealed class Picture : ValueObjectBase, IValueObject<byte[], Picture>
     {

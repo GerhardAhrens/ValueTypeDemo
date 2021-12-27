@@ -17,10 +17,12 @@ namespace EasyPrototyping.Entity
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Globalization;
 
-    using ValueTypeDemo.Core;
+    using ValueTypeLibrary.Core;
 
+    [DebuggerDisplay("Value={this.Value};CurrencySymbol={this.CurrencySymbol}")]
     public sealed class Money : ValueObjectBase , IValueObject<decimal, Money>
     {
         private const decimal FractionScale = 1E9M;

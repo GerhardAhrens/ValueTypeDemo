@@ -17,9 +17,8 @@ namespace EasyPrototyping.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
-    using ValueTypeDemo.Core;
+    using ValueTypeLibrary.Core;
 
     public class Address : ValueObjectBase
     {

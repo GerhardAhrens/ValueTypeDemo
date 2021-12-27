@@ -15,11 +15,16 @@
 
 namespace System
 {
-    using global::System.Linq;
-    using global::System.Text.RegularExpressions;
+    using System.Linq;
+    using System.Text.RegularExpressions;
 
-    internal static class StringExtension
+    public static class StringExtension
     {
+        /// <summary>
+        /// Die Extension gibt den Phonetischen Code des Strings zurück. Das Ergebnis ist Analog zum SoundEx auf dem SQL Server.
+        /// </summary>
+        /// <param name="this">Übergebener String</param>
+        /// <returns>String = Phonetischer Code</returns>
         public static string SoundEx(this string @this)
         {
             return Soundex.Generate(@this);

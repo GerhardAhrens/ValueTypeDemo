@@ -13,7 +13,7 @@
 // </summary>
 //-----------------------------------------------------------------------
 
-namespace ValueTypeDemo.Core
+namespace ValueTypeLibrary.Core
 {
     using System;
     using System.Collections.Generic;
@@ -142,7 +142,7 @@ namespace ValueTypeDemo.Core
             return (T)this.MemberwiseClone();
         }
 
-        public IEnumerable<string> GetValues()
+        public IEnumerable<string?> GetValues()
         {
             return this.GetEqualityComponents().Select(x => x.ToString());
         }

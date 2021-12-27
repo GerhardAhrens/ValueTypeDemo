@@ -18,11 +18,10 @@ namespace EasyPrototyping.Entity
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Text.RegularExpressions;
 
-    using ValueTypeDemo.Core;
+    using ValueTypeLibrary.Core;
 
-    [DebuggerDisplay("Value={Value}")]
+    [DebuggerDisplay("Value={this.Value};PhoneticCode={this.PhoneticCode}")]
     public sealed class Firstname : ValueObjectBase, IValueObject<string, Firstname>
     {
         public Firstname(string value = "", bool firstCharUpper = true)

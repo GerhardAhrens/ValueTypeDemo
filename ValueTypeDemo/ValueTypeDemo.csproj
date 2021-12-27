@@ -12,7 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Core\" />
     <Folder Include="Domain\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ValueTypeLibrary\ValueTypeLibrary.csproj" />
   </ItemGroup>
 
 </Project>

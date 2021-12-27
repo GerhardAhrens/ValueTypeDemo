@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueType_Test", "ValueType
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTypeT4Template", "ValueTypeT4Template\ValueTypeT4Template.csproj", "{317E0534-1D25-40DB-8C67-450EAA649DC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTypeLibrary", "ValueTypeLibrary\ValueTypeLibrary.csproj", "{D2275C2B-352D-4A79-9045-EFB65F271277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{317E0534-1D25-40DB-8C67-450EAA649DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317E0534-1D25-40DB-8C67-450EAA649DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317E0534-1D25-40DB-8C67-450EAA649DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2275C2B-352D-4A79-9045-EFB65F271277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2275C2B-352D-4A79-9045-EFB65F271277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2275C2B-352D-4A79-9045-EFB65F271277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2275C2B-352D-4A79-9045-EFB65F271277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
