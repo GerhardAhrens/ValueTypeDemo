@@ -30,6 +30,16 @@ namespace System
             return Soundex.Generate(@this);
         }
 
+        public static string Repeat(this string @this, int count)
+        {
+            return string.Concat(Enumerable.Repeat(@this, count));
+        }
+
+        public static string Repeat(this char c, int n)
+        {
+            return new String(c, n);
+        }
+
         private static class Soundex
         {
             public const string Empty = "0000";

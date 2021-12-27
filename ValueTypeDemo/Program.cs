@@ -1,25 +1,35 @@
-﻿using EasyPrototyping.Entity;
+﻿using ConsoleMenue;
 
+using EasyPrototyping.Entity;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+
+using ValueTypeLibrary.Console;
 
 public class Program
 {
+    private static List<MenueOption> options;
+
     private static void Main(string[] args)
     {
-        Email email = new Email();
-        if (email != null)
+        options = new List<MenueOption>();
+        options.Add(new MenueOption("Create Entity EMail [A]", () =>
         {
-            if (email.IsConfirmed == false)
-            {
-                MessageBox.Show("No content");
-            }
-        }
+            new DemoEntityEMail().CreateEntity();
+            ConsoleMenuSmall.WriteMenu(options, options.First());
+        }, ConsoleKey.A));
 
-        Email email1 = new Email("gerhard.ahrens@lifeprojects.de");
-        if (email1 != null)
-        {
-            MessageBox.Show(email1.Value);
-        }
+        options.Add(new MenueOption("E[x]it", () => 
+        { 
+            Environment.Exit(0); 
+        }));
+
+        ConsoleMenuSmall.Run(options, options[0]);
+
+        /*
 
         Firstname firstName = new Firstname("gerhard");
         if (firstName != null)
@@ -27,7 +37,7 @@ public class Program
             MessageBox.Show($"{firstName.Value}\n{firstName.PhoneticCode}");
         }
 
-        Address adr1 = new Address("Deutschland","68195","Musterstadt","Musterstrasse");
+        Address adr1 = new Address("Deutschland", "68195", "Musterstadt", "Musterstrasse");
         if (adr1 != null)
         {
             Address adr2 = new Address("Deutschland", "68195", "Musterstadt", "Musterstrasse");
@@ -38,6 +48,7 @@ public class Program
                 var aa = adr1.GetProperties();
             }
         }
+        */
 
     }
 }
