@@ -37,11 +37,5 @@
 
             Thread.Sleep(1000);
         }
-
-        public void DemoB()
-        {
-            Console.WriteLine("\nDemo B");
-            Thread.Sleep(1000);
-        }
     }
 }

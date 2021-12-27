@@ -26,9 +26,11 @@ namespace EasyPrototyping.Entity
     {
         public Firstname(string value = "", bool firstCharUpper = true)
         {
+            this.FirstCharUpper = firstCharUpper;
+
             if (string.IsNullOrEmpty(value) == false)
             {
-                if (firstCharUpper == true)
+                if (this.FirstCharUpper == true)
                 {
                     this.Value = string.Concat(value[0].ToString().ToUpper(), value.AsSpan(1));
                 }
@@ -50,6 +52,8 @@ namespace EasyPrototyping.Entity
 
         public string PhoneticCode { get; }
 
+        public bool FirstCharUpper { get; }
+
         #region Implementation of override methodes
         public override bool Equals(object @this)
         {
@@ -70,12 +74,12 @@ namespace EasyPrototyping.Entity
         #region Implementation of overload operators
         public static bool operator ==(Firstname a, Firstname b)
         {
-            return EqualOperator(a.Value, b.Value);
+            return EqualOperator(a?.Value, b?.Value);
         }
 
         public static bool operator !=(Firstname a, Firstname b)
         {
-            return NotEqualOperator(a.Value, b.Value);
+            return NotEqualOperator(a?.Value, b?.Value);
         }
         #endregion Implementation of overload operators
 

@@ -22,6 +22,12 @@ public class Program
             ConsoleMenuSmall.WriteMenu(options, options.First());
         }, ConsoleKey.A));
 
+        options.Add(new MenueOption("Create Entity Firstname [B]", () =>
+        {
+            new DemoEntityFirstname().CreateEntity();
+            ConsoleMenuSmall.WriteMenu(options, options.First());
+        }, ConsoleKey.B));
+
         options.Add(new MenueOption("E[x]it", () => 
         { 
             Environment.Exit(0); 
