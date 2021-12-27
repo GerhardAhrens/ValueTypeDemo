@@ -1,0 +1,45 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #> 
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Data.dll" #>
+<#@ Assembly Name="System.Data.DataSetExtensions.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Globalization" #>
+
+<#string className = "xyz_Class";#>
+//-----------------------------------------------------------------------
+// <copyright file="<#= className #>.cs" company="Lifeprojects.de">
+//     Class: <#= className #>
+//     Copyright © Lifeprojects.de <#= DateTime.Now.Year #>
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>gerhard.ahrens@lifeprojects.de</email>
+// <date><#= DateTime.Now.ToShortDateString() #></date>
+//
+// <summary>
+// Class for
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace ValueTypeLibrary
+{
+    using System;
+    using System.Globalization;
+
+    public class <#= className #>
+    {
+        public <#= className #>()
+        {
+        }
+    }
+}
+ 

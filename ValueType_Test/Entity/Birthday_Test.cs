@@ -113,6 +113,22 @@ namespace ValueType_Test
         }
 
         [TestMethod]
+        public void DateTimeValueInList()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            bool result = birthday.In(new DateTime(1900, 1, 1), new DateTime(2021, 12, 27), new DateTime(1960, 6, 18), new DateTime(1960,6,28));
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void DateTimeValueNoInList()
+        {
+            Birthday birthday = new Birthday(1960, 6, 28);
+            bool result = birthday.NotIn(new DateTime(1900, 1, 1), new DateTime(2021, 12, 27), new DateTime(1960, 6, 18));
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
         public void Clone()
         {
             Birthday birthday = new Birthday(1960, 6, 28);

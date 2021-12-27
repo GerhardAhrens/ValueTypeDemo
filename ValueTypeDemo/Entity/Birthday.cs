@@ -138,7 +138,27 @@ namespace EasyPrototyping.Entity
         /// <returns>True wenn das Datum innherhalb des Vergelchsdatum A und B liegt, sonst False</returns>
         public bool NotBetween(DateTime dateIn, DateTime dateOut)
         {
-            return this.NotBetween(dateIn, dateOut);
+            return this.Value.NotBetween(dateIn, dateOut);
+        }
+
+        /// <summary>
+        /// Die Methode prüft, ob das Datum in der übergeben Liste von Type 'DateTime' enthalten ist
+        /// </summary>
+        /// <param name="dateTimeValues">Liste von DateTime Werten</param>
+        /// <returns>True = wenn in der Liste</returns>
+        public bool In(params DateTime[] dateTimeValues)
+        {
+            return this.Value.In(dateTimeValues);
+        }
+
+        /// <summary>
+        /// Die Methode prüft, ob das Datum in der übergeben Liste von Type 'DateTime' nicht enthalten ist
+        /// </summary>
+        /// <param name="dateTimeValues">Liste von DateTime Werten</param>
+        /// <returns>True = wenn nicht in der Liste</returns>
+        public bool NotIn(params DateTime[] dateTimeValues)
+        {
+            return this.Value.NotIn(dateTimeValues);
         }
 
         #region Implementation of override methodes

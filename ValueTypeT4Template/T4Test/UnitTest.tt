@@ -1,0 +1,76 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #> 
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Data.dll" #>
+<#@ Assembly Name="System.Data.DataSetExtensions.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Globalization" #>
+
+<#string className = "UnitTestingForxyz_Test";#>
+//-----------------------------------------------------------------------
+// <copyright file="<#= className #>.cs" company="Lifeprojects.de">
+//     Class: <#= className #>
+//     Copyright © Lifeprojects.de <#= DateTime.Now.Year #>
+// </copyright>
+//
+// <author>Gerhard Ahrens - Lifeprojects.de</author>
+// <email>gerhard.ahrens@lifeprojects.de</email>
+// <date><#= DateTime.Now.ToShortDateString() #></date>
+//
+// <summary>
+// UnitTest for
+// </summary>
+//-----------------------------------------------------------------------
+
+namespace ValueTypeLibrary_Test
+{
+    using System;
+    using System.Globalization;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    [TestClass]
+    public class <#= className #> : BaseTest
+    {
+        [TestInitialize]
+        public void Initialize()
+        {
+        }
+
+        public <#= className #>()
+        {
+        }
+
+        [TestMethod]
+        public void xyz_xyz()
+        {        
+        }
+
+        [DataRow("", "")]
+        [TestMethod]
+        public void DataRowInputTest(string input, string expected)
+        {        
+        }
+
+        [TestMethod]
+        public void ExceptionTest()
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.GetType() == typeof(Exception));
+            }
+        }
+    }
+}
+ 
