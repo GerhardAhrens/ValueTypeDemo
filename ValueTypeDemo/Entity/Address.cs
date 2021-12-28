@@ -16,6 +16,7 @@
 namespace EasyPrototyping.Entity
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
 
     using ValueTypeLibrary.Core;
@@ -83,11 +84,21 @@ namespace EasyPrototyping.Entity
         {
             bool result = false;
 
+            var query = from aProp in a?.GetType().GetProperties()
+                        let aValue = aProp.GetValue(a)
+                        let bProp = b?.GetType().GetProperty(aProp.Name)
+                        let bValue = bProp?.GetValue(b)
+                        where !aValue.Equals(bValue)
+                        select new { aProp.Name, aValue, bValue };
+
+            result = query.Where(w => w.Name != "ObjectId").Count() > 0 ? false : true;
+
+            /*
             if (a?.Country == b?.Country && a?.Zip == b?.Zip && a?.City == b?.City && a?.Street == b?.Street && a?.StreetAdd == b?.StreetAdd)
             {
                 result = true;
             }
-
+            */
             return result;
         }
 
@@ -95,11 +106,21 @@ namespace EasyPrototyping.Entity
         {
             bool result = false;
 
+            var query = from aProp in a?.GetType().GetProperties()
+                        let aValue = aProp.GetValue(a)
+                        let bProp = b?.GetType().GetProperty(aProp.Name)
+                        let bValue = bProp?.GetValue(b)
+                        where !aValue.Equals(bValue)
+                        select new { aProp.Name, aValue, bValue };
+
+            result = query.Where(w => w.Name != "ObjectId").Count() > 0 ? true : false;
+
+            /*
             if (a?.Country != b?.Country || a?.Zip != b?.Zip || a?.City != b?.City || a?.Street != b?.Street || a?.StreetAdd != b?.StreetAdd)
             {
                 result = true;
             }
-
+            */
             return result;
         }
         #endregion Implementation of overload operators
