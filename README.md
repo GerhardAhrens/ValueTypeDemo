@@ -148,3 +148,6 @@ public static bool operator !=(Firstname firstObject, Firstname secondObject)
     return NotEqualOperator(firstObject?.Value, secondObject?.Value);
 }
 ```
+
+# T4 Template für Values Object
+Um den Aufwand zur Erstellung von Values Object zu verkleinern kann eine VO-Klasse aus einem T4 Template als Basis erstellt werden.
