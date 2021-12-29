@@ -28,6 +28,12 @@ public class Program
             ConsoleMenuSmall.WriteMenu(options, options.First());
         }, ConsoleKey.B));
 
+        options.Add(new MenueOption("Create Entity Address [C]", () =>
+        {
+            new DemoEntityAddress().CreateEntity();
+            ConsoleMenuSmall.WriteMenu(options, options.First());
+        }, ConsoleKey.C));
+
         options.Add(new MenueOption("E[x]it", () => 
         { 
             Environment.Exit(0); 

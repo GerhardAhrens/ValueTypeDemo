@@ -23,33 +23,17 @@ namespace EasyPrototyping.Entity
 
     public class Address : ValueObjectBase
     {
-        public Address(string country, string zip, string city, string street)
+        public Address(string country, string zip, string city, params string[] street)
         {
-            country.IsArgumentEmptyOrNull(nameof(country));
-            zip.IsArgumentEmptyOrNull(nameof(zip));
-            city.IsArgumentEmptyOrNull(nameof(city));
-            street.IsArgumentEmptyOrNull(nameof(street));
+            country.IsArgumentNull(nameof(country));
+            zip.IsArgumentNull(nameof(zip));
+            city.IsArgumentNull(nameof(city));
+            street.IsArgumentNull(nameof(street));
 
             this.Country = country;
             this.Zip = zip;
             this.City = city;
             this.Street = street;
-            this.StreetAdd = string.Empty;
-        }
-
-        public Address(string country, string zip,string city, string street, string streetAdd)
-        {
-            country.IsArgumentEmptyOrNull(nameof(country));
-            zip.IsArgumentEmptyOrNull(nameof(zip));
-            city.IsArgumentEmptyOrNull(nameof(city));
-            street.IsArgumentEmptyOrNull(nameof(street));
-            streetAdd.IsArgumentEmptyOrNull(nameof(streetAdd));
-
-            this.Country = country;
-            this.Zip = zip;
-            this.City = city;
-            this.Street = street;
-            this.StreetAdd = streetAdd;
         }
 
         public string Country { get; }
@@ -58,9 +42,18 @@ namespace EasyPrototyping.Entity
 
         public string City { get; }
 
-        public string Street { get;  }
+        public string[] Street { get;  }
 
-        public string StreetAdd { get; }
+        public bool IsEmpty()
+        {
+
+            bool result = this.GetType().GetProperties()
+                .Where(pi => pi.PropertyType == typeof(string))
+                .Select(pi => (string)pi.GetValue(this))
+                .Any(value => string.IsNullOrEmpty(value));
+
+            return result;
+        }
 
         #region Implementation of override methodes
         public override bool Equals(object @this)
@@ -75,7 +68,7 @@ namespace EasyPrototyping.Entity
 
         public override string ToString()
         {
-            return $"{this.Country},{this.Zip},{this.City};{this.Street}";
+            return $"{this.Country},{this.Zip},{this.City};{string.Join(" ", this.Street)}";
         }
         #endregion Implementation of override methodes
 
@@ -131,7 +124,6 @@ namespace EasyPrototyping.Entity
             yield return this.Zip;
             yield return this.City;
             yield return this.Street;
-            yield return this.StreetAdd;
         }
     }
 }
