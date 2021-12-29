@@ -86,10 +86,10 @@ Assert.IsTrue(birthday.AgeInYear() == 61);
 Assert.IsTrue(birthday.AgeInDays() == 22458);
 ```
 
-## Erstellen eines Value Objects
+# Erstellen eines Value Objects
 Als Beispiel wird eine einfaches VO für einen 'Vornamen' ertellt. Das erste Zeichen soll wahlweise UpperCase sein. Aus dem String soll ein phonetischer Code auf Basis von SoundEx erstellt werden.
 
-### Klasse für Value Objects
+## Klasse für Value Objects
 Ein Value Objects wird aus der Basisklasse ''ValueObjectBase' und dem Interface 'IValueObject<TTyp, TEntity>' erstellt. In der Basisklassen sind eine Reihe von Methoden
 implementiert, die auf das zu erstellende VO vererbt werden.
 
