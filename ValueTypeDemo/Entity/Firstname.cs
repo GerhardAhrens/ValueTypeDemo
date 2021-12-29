@@ -72,14 +72,14 @@ namespace EasyPrototyping.Entity
         #endregion Implementation of override methodes
 
         #region Implementation of overload operators
-        public static bool operator ==(Firstname a, Firstname b)
+        public static bool operator ==(Firstname firstObject, Firstname secondObject)
         {
-            return EqualOperator(a?.Value, b?.Value);
+            return EqualOperator(firstObject?.Value, secondObject?.Value);
         }
 
-        public static bool operator !=(Firstname a, Firstname b)
+        public static bool operator !=(Firstname firstObject, Firstname secondObject)
         {
-            return NotEqualOperator(a?.Value, b?.Value);
+            return NotEqualOperator(firstObject?.Value, secondObject?.Value);
         }
         #endregion Implementation of overload operators
 
