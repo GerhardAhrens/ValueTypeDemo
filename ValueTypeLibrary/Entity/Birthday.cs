@@ -17,9 +17,11 @@ namespace EasyPrototyping.Entity
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     using ValueTypeLibrary.Core;
 
+    [DebuggerDisplay("Value={Value.ToShortDateString()}")]
     public sealed class Birthday : ValueObjectBase, IValueObject<DateTime, Birthday>, IFormattable
     {
         public Birthday(DateTime value)
